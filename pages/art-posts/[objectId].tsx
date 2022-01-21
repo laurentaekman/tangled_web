@@ -1,4 +1,3 @@
-import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
@@ -142,7 +141,6 @@ export const getStaticProps = async (context) => {
     console.log(error);
   }
   return { props: {} };
-  //console.log(artObject);
 };
 
 export const getStaticPaths = async () => {
@@ -159,14 +157,9 @@ export const getStaticPaths = async () => {
   // }
 
   return {
-    //false => all pages are defined here, leads to 404 if it's not here
-    //blocking => nextjs will not respond with 404, instead generates page on demand + caches...
-    //blocking => user sees nothing until data is generated to populate page
-    fallback: "blocking", //true => dynamically generates some pages that aren't specified here, starts with empty page
+    fallback: "blocking",
     // paths: [`/art-posts/436532`], //TODO: grab list of valid object IDs and use that for path
     paths: [{ params: { objectId: "436532" } }],
     //paths: listOfObjectIDs.map((objectID) => `/art-posts/${objectID}`),
-
-    //Is there a way to grab list of object IDs from app context? Or make a global variable?
   };
 };
