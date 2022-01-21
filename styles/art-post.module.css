@@ -1,0 +1,42 @@
+.art_post {
+  margin: 2rem 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  /* color: #265e93; */
+  /* background: #ece8d3; */
+}
+
+.sub_header {
+  width: 100%;
+  padding: 0 0 0 1rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.image {
+  max-width: 48rem;
+  max-height: 37.5rem;
+  position: relative;
+  top: 17.5rem;
+  transition: transform 0.2s; /* Animation */
+
+  /* make this smarter in terms of positioning */
+}
+.image:hover {
+  transform: scale(1.5);
+}
+
+.description {
+  width: 75%;
+  background: #d5dbb3;
+  padding: 2rem;
+}
+.description > div {
+  padding: 0 0 1rem 0;
+}
+.description > div > p {
+  border-bottom: 1px solid #bb371a;
+  font-size: larger;
+  font-weight: bold;
+}

@@ -1,16 +1,37 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Baskerville:wght@400;500&display=swap"); */
+
 html,
 body {
+  background: #fff8d9;
+  color: #bb371a;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Baskerville";
+  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
 }
 
 a {
-  color: inherit;
+  color: #005a8d;
   text-decoration: none;
+}
+
+h1 {
+  background: #d5dbb3;
+  padding: 2rem;
+  width: 100%;
+  text-align: center;
 }
 
 * {
   box-sizing: border-box;
 }
+
+/*
+PALETTE: 
+dark yellow = EBA83A
+dark red = BB371A
+pale yellow = FFF8D9
+pale green = D5DBB3
+blue = 005A8D
+*/
