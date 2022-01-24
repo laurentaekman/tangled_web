@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useContext } from "react";
 import ArtDescription from "../../components/ArtDescription";
 import Frame from "../../components/Frame";
 import frameStyles from "../../components/Frame.module.css";
@@ -27,18 +26,6 @@ export default function ArtPost(artObject: ArtObject) {
     image.src = artObject.imageSource;
   }, [artObject.imageSource]);
 
-  // useEffect(() => {
-  //   async function getObjectIDs() {
-  //     const response = await fetch(
-  //       "https://collectionapi.metmuseum.org/public/collection/v1/objects"
-  //     );
-  //     const data = await response.json();
-  //     setObjectIDList(data.objectIDs);
-  //   }
-  //   getObjectIDs();
-  // });
-  //console.log(objectIDList);
-
   return (
     <div className={artPostStyles.art_post}>
       <div className={artPostStyles.sub_header}>
@@ -48,7 +35,7 @@ export default function ArtPost(artObject: ArtObject) {
       </div>
       <h1>{artObject.title ?? ""}</h1>
 
-      {artObject.imageSource && (
+      {artObject?.imageSource && (
         <Frame className={frameStyles.frame} dimensions={frameDimensions}>
           <img
             src={artObject.imageSource}
@@ -61,8 +48,16 @@ export default function ArtPost(artObject: ArtObject) {
       )}
       <hr></hr>
       {artObject && (
+        <div>
+          <div>
+            Click any of the links below to find a new related piece of art.
+          </div>
+          <div>Otherwise, return to Home for new randomized pieces!</div>
+        </div>
+      )}
+      <hr></hr>
+      {artObject?.id && (
         <ArtDescription
-          id={artObject.id}
           artistName={artObject.artistName}
           artistNationality={artObject.artistNationality}
           artistBirthYear={artObject.artistBirthYear}
@@ -72,8 +67,10 @@ export default function ArtPost(artObject: ArtObject) {
           medium={artObject.medium}
           dimensions={artObject.dimensions}
           department={artObject.department}
+          objectName={artObject.objectName}
         />
       )}
+      {!artObject.id && <div>There was an error while retrieving data.</div>}
     </div>
   );
 }
@@ -91,6 +88,7 @@ export interface ArtObject {
   medium: string;
   dimensions: string;
   imageSource: string;
+  objectName: string;
 }
 
 export interface APIArtObject {
@@ -106,6 +104,7 @@ export interface APIArtObject {
   medium: string;
   dimensions: string;
   primaryImageSmall: string;
+  objectName: string;
 }
 
 const convertArtObject = (apiObject: APIArtObject): ArtObject => {
@@ -122,6 +121,7 @@ const convertArtObject = (apiObject: APIArtObject): ArtObject => {
     medium: apiObject.medium,
     dimensions: apiObject.dimensions,
     imageSource: apiObject.primaryImageSmall,
+    objectName: apiObject.objectName,
   };
 };
 
@@ -136,6 +136,7 @@ export const getStaticProps = async (context) => {
     //Handle instance where objectId is invalid
     const output = await response.json();
     const artObject: APIArtObject = output;
+    //console.log(artObject);
     return { props: convertArtObject(artObject) }; //Had to nest the returned object within 'props' property
   } catch (error) {
     console.log(error);

@@ -13,7 +13,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       console.log("calling objectIDs for context!");
       const response = await fetch(
         "https://collectionapi.metmuseum.org/public/collection/v1/objects"
-        //`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true`
       );
       const data = await response.json();
       const objectIDs: number[] = data.objectIDs;

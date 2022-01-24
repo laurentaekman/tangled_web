@@ -1,7 +1,10 @@
 import artPostStyles from "../styles/art-post.module.css";
+import Link from "next/link";
+import { SearchTypes, generateHref } from "../utils/utils";
+import { useContext, useEffect, useState } from "react";
+import ObjectsContext from "../context/objects-context";
 
 interface Props {
-  id: string;
   artistName: string;
   artistNationality: string;
   artistBirthYear: string;
@@ -11,10 +14,10 @@ interface Props {
   medium: string;
   dimensions: string;
   department: string;
+  objectName: string;
 }
 
 export default function ArtDescription({
-  id,
   artistName,
   artistNationality,
   artistBirthYear,
@@ -24,7 +27,14 @@ export default function ArtDescription({
   medium,
   dimensions,
   department,
+  objectName,
 }: Props) {
+  const departments = useContext(ObjectsContext).departments;
+  const objectDepartment = departments.find(
+    (currentDepartment) => currentDepartment.displayName === department
+  );
+  const [departmentHref, setDepartmentHref] = useState("");
+
   const createArtistBio = (
     name: string,
     nationality: string,
@@ -49,7 +59,7 @@ export default function ArtDescription({
 
   const objectCreationDateRange = (beginDate: string, endDate: string) => {
     if (beginDate !== endDate) {
-      return `${beginDate}-${endDate}`;
+      return `${beginDate} to ${endDate}`;
     } else {
       return beginDate;
     }
@@ -85,10 +95,26 @@ export default function ArtDescription({
       id: "department",
       label: "Department:",
       artInfo: department,
+      linkHref: departmentHref,
     },
   ].filter((data) => {
     return !!data.artInfo || data.artInfo !== "";
   });
+
+  useEffect(() => {
+    //Acquire links for all necessary fields
+    async function getDepartmentPath() {
+      const departmentLink = await generateHref(
+        SearchTypes.department,
+        objectDepartment.departmentId,
+        objectName
+      );
+      setDepartmentHref(departmentLink);
+    }
+    if (objectDepartment && objectName) {
+      getDepartmentPath();
+    }
+  }, [objectDepartment, objectName]);
 
   return (
     <div className={artPostStyles.description}>
@@ -96,7 +122,8 @@ export default function ArtDescription({
         return (
           <div key={data.id}>
             <p>{data.label}</p>
-            {data.artInfo}
+            {data.linkHref && <Link href={data.linkHref}></Link>}
+            {!data.linkHref && <p>{data.artInfo}</p>}
           </div>
         );
       })}
