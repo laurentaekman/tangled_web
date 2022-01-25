@@ -1,6 +1,6 @@
 import artPostStyles from "../styles/art-post.module.css";
 import Link from "next/link";
-import { SearchTypes, generateHref } from "../utils/utils";
+import { SearchTypes, searchAndFetchObject } from "../utils/utils";
 import { useContext, useEffect, useState } from "react";
 import ObjectsContext from "../context/objects-context";
 
@@ -15,6 +15,7 @@ interface Props {
   dimensions: string;
   department: string;
   objectName: string;
+  objectId: string;
 }
 
 export default function ArtDescription({
@@ -28,12 +29,17 @@ export default function ArtDescription({
   dimensions,
   department,
   objectName,
+  objectId,
 }: Props) {
   const departments = useContext(ObjectsContext).departments;
   const objectDepartment = departments.find(
     (currentDepartment) => currentDepartment.displayName === department
   );
-  const [departmentHref, setDepartmentHref] = useState("");
+
+  const [departmentHref, setDepartmentHref] = useState<string>("");
+  const [artistHref, setArtistHref] = useState<string>("");
+  const [dateHref, setDateHref] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const createArtistBio = (
     name: string,
@@ -75,11 +81,13 @@ export default function ArtDescription({
         artistBirthYear,
         artistDeathYear
       ),
+      linkHref: artistHref,
     },
     {
       id: "years-created",
       label: "Year(s) Created:",
       artInfo: objectCreationDateRange(objectBeginDate, objectEndDate),
+      linkHref: dateHref,
     },
     {
       id: "medium",
@@ -102,19 +110,63 @@ export default function ArtDescription({
   });
 
   useEffect(() => {
-    //Acquire links for all necessary fields
     async function getDepartmentPath() {
-      const departmentLink = await generateHref(
+      setIsLoading(true);
+      const newDepartmentObject = await searchAndFetchObject(
         SearchTypes.department,
         objectDepartment.departmentId,
-        objectName
+        objectName,
+        objectId
       );
-      setDepartmentHref(departmentLink);
+      if (newDepartmentObject) {
+        setDepartmentHref(`/art-posts/${newDepartmentObject}`);
+      }
+      setIsLoading(false);
     }
     if (objectDepartment && objectName) {
       getDepartmentPath();
     }
-  }, [objectDepartment, objectName]);
+  }, [objectDepartment, objectName, objectId]);
+
+  useEffect(() => {
+    async function getArtistPath() {
+      setIsLoading(true);
+      const newArtistObject = await searchAndFetchObject(
+        SearchTypes.artist,
+        "true",
+        artistName,
+        objectId
+      );
+      if (newArtistObject) {
+        setArtistHref(`/art-posts/${newArtistObject}`);
+      }
+      setIsLoading(false);
+    }
+    if (artistName) {
+      getArtistPath();
+    }
+  }, [artistName, objectId]);
+
+  useEffect(() => {
+    async function getDatePath() {
+      setIsLoading(true);
+      const newDateObject = await searchAndFetchObject(
+        SearchTypes.date,
+        `${objectBeginDate ?? ""} ${objectEndDate ?? ""}`.trim(),
+        objectName,
+        objectId
+      );
+
+      //Tighten up date ranges when making requests
+      if (newDateObject) {
+        setDateHref(`/art-posts/${newDateObject}`);
+      }
+      setIsLoading(false);
+    }
+    if (objectBeginDate || objectEndDate) {
+      getDatePath();
+    }
+  }, [objectBeginDate, objectEndDate, objectName, objectId]);
 
   return (
     <div className={artPostStyles.description}>
@@ -122,8 +174,13 @@ export default function ArtDescription({
         return (
           <div key={data.id}>
             <p>{data.label}</p>
-            {data.linkHref && <Link href={data.linkHref}></Link>}
-            {!data.linkHref && <p>{data.artInfo}</p>}
+            {data.linkHref && !isLoading && (
+              <Link href={data.linkHref}>
+                <a>{data.artInfo}</a>
+              </Link>
+            )}
+            {!data.linkHref && !isLoading && <div>{data.artInfo}</div>}
+            {isLoading && <div className={artPostStyles.small_loader}></div>}
           </div>
         );
       })}

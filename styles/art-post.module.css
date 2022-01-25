@@ -40,3 +40,28 @@
   font-size: larger;
   font-weight: bold;
 }
+
+.loader,
+.small_loader {
+  border: 0.5rem solid #f3e9ba;
+  border-top: 0.5rem solid #005a8d;
+  border-radius: 100%;
+  width: 10rem;
+  height: 10rem;
+  margin: auto;
+  animation: spin 0.75s ease-in-out infinite;
+}
+
+.small_loader {
+  width: 2rem;
+  height: 2rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

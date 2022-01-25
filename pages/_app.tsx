@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     async function getObjectIDs() {
-      console.log("calling objectIDs for context!");
+      //console.log("calling objectIDs for context!");
       const response = await fetch(
         "https://collectionapi.metmuseum.org/public/collection/v1/objects"
       );
@@ -40,3 +40,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
+
+/*
+TODOs/IDEAS
+- Link to other art posts based on search items
+  - Department X
+  - Artist X
+  - Medium?
+  - Year created X
+  - Nation/location
+- Favorite certain posts so you can return to them
+- Make entire site 'prettier'
+*/
