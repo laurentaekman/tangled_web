@@ -127,19 +127,21 @@ const convertArtObject = (apiObject: APIArtObject): ArtObject => {
 
 export const getStaticProps = async (context) => {
   const objectId = context.params.objectId;
-  try {
-    //Had to export this independently from ArtPost
-    const response = await fetch(
-      `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectId}`
-      //"https://collectionapi.metmuseum.org/public/collection/v1/objects/446532"
-    );
-    //Handle instance where objectId is invalid
-    const output = await response.json();
-    const artObject: APIArtObject = output;
-    //console.log(artObject);
-    return { props: convertArtObject(artObject) }; //Had to nest the returned object within 'props' property
-  } catch (error) {
-    console.log(error);
+  if (objectId && objectId !== "undefined") {
+    console.log(objectId);
+    try {
+      //Had to export this independently from ArtPost
+      const response = await fetch(
+        `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectId}`
+        //"https://collectionapi.metmuseum.org/public/collection/v1/objects/446532"
+      );
+      const output = await response.json();
+      const artObject: APIArtObject = output;
+      //console.log(artObject);
+      return { props: convertArtObject(artObject) }; //Had to nest the returned object within 'props' property
+    } catch (error) {
+      console.log(error);
+    }
   }
   return { props: {} };
 };
