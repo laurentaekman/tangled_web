@@ -39,6 +39,7 @@ export default function ArtDescription({
   const [departmentHref, setDepartmentHref] = useState<string>("");
   const [artistHref, setArtistHref] = useState<string>("");
   const [dateHref, setDateHref] = useState<string>("");
+  const [mediumHref, setMediumHref] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
 
   const createArtistBio = (
@@ -93,6 +94,7 @@ export default function ArtDescription({
       id: "medium",
       label: "Medium:",
       artInfo: medium,
+      linkHref: mediumHref,
     },
     {
       id: "dimensions",
@@ -167,6 +169,27 @@ export default function ArtDescription({
       getDatePath();
     }
   }, [objectBeginDate, objectEndDate, objectName, objectId]);
+
+  useEffect(() => {
+    async function getMediumPath() {
+      setIsLoading(true);
+      const searchTerm = medium.split(" ")[0].replace(/\W/g, "");
+      const newMediumObject = await searchAndFetchObject(
+        SearchTypes.medium,
+        searchTerm,
+        objectName,
+        objectId
+      );
+
+      if (newMediumObject) {
+        setMediumHref(`/art-posts/${newMediumObject}`);
+      }
+      setIsLoading(false);
+    }
+    if (medium) {
+      getMediumPath();
+    }
+  }, [medium, objectName, objectId]);
 
   return (
     <div className={artPostStyles.description}>
