@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import ArtObjectCard from "../components/ArtObjectCard";
 import ObjectsContext from "../context/objects-context";
+import Header from "../components/Header";
 
 /*
 TODO:
@@ -73,7 +73,8 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Tangled Web (Art Edition)</h1>
+        <Header />
+        {/* <h1 className={styles.title}>Tangled Web (Art Edition)</h1> */}
         <h2>Get started by clicking one of the art pieces below.</h2>
         <div>
           Or click{" "}

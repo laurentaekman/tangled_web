@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import ArtDescription from "../../components/ArtDescription";
 import Frame from "../../components/Frame";
+import Header from "../../components/Header";
 import frameStyles from "../../components/Frame.module.css";
 import artPostStyles from "../../styles/art-post.module.css";
 
@@ -56,6 +57,7 @@ export default function ArtPost() {
 
   return (
     <div className={artPostStyles.art_post}>
+      <Header />
       <div className={artPostStyles.sub_header}>
         <Link href={"/"}>
           <a>{"< Back to home"}</a>
