@@ -25,10 +25,6 @@ const Home: NextPage = () => {
   useEffect(() => {
     setIsLoading(true);
     async function getRandomObjectIDs() {
-      // const response = await fetch(
-      //   "https://collectionapi.metmuseum.org/public/collection/v1/objects"
-      // );
-      // const data = await response.json();
       const data = objectsContext.objectIDs;
       const randomObjectIDs: number[] = [];
       for (let i = 0; i < 3; i++) {
@@ -40,7 +36,6 @@ const Home: NextPage = () => {
     if (objectsContext.objectIDs.length > 0) {
       getRandomObjectIDs();
     }
-    //setIsLoading(false);
   }, [objectsContext]);
 
   useEffect(() => {
@@ -83,12 +78,13 @@ const Home: NextPage = () => {
           </Link>
         </div>
 
-        {startingObjects.length > 0 &&
-          startingObjectIDs.length &&
-          !isLoading &&
-          startingObjects.map((object) => {
-            return <ArtObjectCard artObject={object} key={object.objectID} />;
-          })}
+        {startingObjects.length > 0 && startingObjectIDs.length && !isLoading && (
+          <div className={styles.cards}>
+            {startingObjects.map((object) => {
+              return <ArtObjectCard artObject={object} key={object.objectID} />;
+            })}
+          </div>
+        )}
         {isLoading && <div className={styles.loader}></div>}
       </main>
     </div>

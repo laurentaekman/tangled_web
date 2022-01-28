@@ -1,4 +1,6 @@
 .card {
+  display: flex;
+  align-items: center;
   margin: 1rem;
   padding: 1.5rem;
   text-align: center;
@@ -8,7 +10,6 @@
   border: 1px solid #bb371a;
   border-radius: 10px;
   transition: all 0.2s ease;
-  width: 70%;
 }
 
 .card:hover,
@@ -21,8 +22,7 @@
 }
 
 .card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+  font-size: 2rem;
   background: #fff8d9;
   padding: 1rem;
   border-radius: 1rem;
@@ -30,10 +30,9 @@
 
 .card p {
   font-size: 1.25rem;
-  line-height: 1.5;
 }
 
 .card img {
-  /* max-width: 300px;
-  max-height: 500px; */
+  width: 30vh;
+  height: 40vh;
 }
