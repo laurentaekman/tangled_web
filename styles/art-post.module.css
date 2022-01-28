@@ -1,36 +1,31 @@
 .art_post {
   margin: 2rem 0;
+  padding: 10rem 0 0 0;
+  overflow: hidden;
+}
+
+.post_items {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.description_info {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  /* color: #265e93; */
-  /* background: #ece8d3; */
-}
-
-.sub_header {
-  width: 100%;
-  padding: 0 0 0 1rem;
-  display: flex;
-  align-items: flex-start;
-}
-
-.image {
-  max-width: 48rem;
-  max-height: 37.5rem;
-  position: relative;
-  top: 17.5rem;
-  transition: transform 0.2s; /* Animation */
-
-  /* make this smarter in terms of positioning */
-}
-.image:hover {
-  transform: scale(1.5);
+  text-align: center;
 }
 
 .description {
-  width: 75%;
+  max-width: 70vh;
+  min-width: 50vh;
   background: #d5dbb3;
+  border: 1px solid #bb371a;
   padding: 2rem;
+  text-align: left;
 }
 .description > div {
   padding: 0 0 1rem 0;

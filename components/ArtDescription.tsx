@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import ObjectsContext from "../context/objects-context";
 
 interface Props {
+  objectTitle: string;
   artistName: string;
   artistNationality: string;
   artistBirthYear: string;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export default function ArtDescription({
+  objectTitle,
   artistName,
   artistNationality,
   artistBirthYear,
@@ -193,6 +195,7 @@ export default function ArtDescription({
 
   return (
     <div className={artPostStyles.description}>
+      <h1>{objectTitle}</h1>
       {dataToRender.map((data) => {
         return (
           <div key={data.id}>

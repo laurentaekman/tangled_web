@@ -1,6 +1,15 @@
 .frame {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  left: 2rem;
+}
+
+.frame div {
   position: absolute;
-  /* top: -62rem; */
+  margin: 0 0 0 6.25rem;
+
+  transition: transform 0.2s;
+}
+.frame div:hover {
+  transform: scale(1.5);
 }

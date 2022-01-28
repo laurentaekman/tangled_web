@@ -1,10 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/dist/client/router";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import ArtDescription from "../../components/ArtDescription";
 import Frame from "../../components/Frame";
 import Header from "../../components/Header";
-import frameStyles from "../../components/Frame.module.css";
 import artPostStyles from "../../styles/art-post.module.css";
 
 export default function ArtPost() {
@@ -48,8 +47,8 @@ export default function ArtPost() {
     const image = new Image();
     image.onload = function () {
       setImageDimensions({
-        height: image.height,
-        width: image.width,
+        height: image.height / 1.25,
+        width: image.width / 1.25,
       });
     };
     image.src = artObject?.imageSource ?? "";
@@ -58,49 +57,42 @@ export default function ArtPost() {
   return (
     <div className={artPostStyles.art_post}>
       <Header />
-      <div className={artPostStyles.sub_header}>
-        <Link href={"/"}>
-          <a>{"< Back to home"}</a>
-        </Link>
-      </div>
-      <h1>{artObject?.title ?? ""}</h1>
-
-      {artObject?.imageSource && (
-        <Frame className={frameStyles.frame} dimensions={frameDimensions}>
-          <img
-            src={artObject.imageSource}
-            alt={artObject.title}
-            height={imageDimensions.height}
-            width={imageDimensions.width}
-            className={artPostStyles.image}
-          ></img>
-        </Frame>
-      )}
-      <hr></hr>
-      {artObject && (
-        <div>
-          <div>
-            Click any of the links below to find a new related piece of art.
+      <div className={artPostStyles.post_items}>
+        {artObject?.imageSource && (
+          <Frame dimensions={frameDimensions}>
+            <img
+              src={artObject.imageSource}
+              alt={artObject.title}
+              height={imageDimensions.height}
+              width={imageDimensions.width}
+            />
+          </Frame>
+        )}
+        {artObject && !isLoading && !error && (
+          <div className={artPostStyles.description_info}>
+            {/* <div>
+              <p>
+                Click any of the links below to find a new related piece of art.
+              </p>
+              <p>Otherwise, return to Home for more randomized pieces!</p>
+            </div> */}
+            <ArtDescription
+              objectTitle={artObject.title}
+              artistName={artObject.artistName}
+              artistNationality={artObject.artistNationality}
+              artistBirthYear={artObject.artistBirthYear}
+              artistDeathYear={artObject.artistDeathYear}
+              objectBeginDate={artObject.objectBeginDate}
+              objectEndDate={artObject.objectEndDate}
+              medium={artObject.medium}
+              dimensions={artObject.dimensions}
+              department={artObject.department}
+              objectName={artObject.objectName}
+              objectId={artObject.id}
+            />
           </div>
-          <div>Otherwise, return to Home for more randomized pieces!</div>
-        </div>
-      )}
-      <hr></hr>
-      {artObject && !isLoading && !error && (
-        <ArtDescription
-          artistName={artObject.artistName}
-          artistNationality={artObject.artistNationality}
-          artistBirthYear={artObject.artistBirthYear}
-          artistDeathYear={artObject.artistDeathYear}
-          objectBeginDate={artObject.objectBeginDate}
-          objectEndDate={artObject.objectEndDate}
-          medium={artObject.medium}
-          dimensions={artObject.dimensions}
-          department={artObject.department}
-          objectName={artObject.objectName}
-          objectId={artObject.id}
-        />
-      )}
+        )}
+      </div>
       {isLoading && <div className={artPostStyles.loader}></div>}
       {error && <div>There was an error while retrieving data.</div>}
     </div>
