@@ -29,15 +29,19 @@
 
 .link,
 .link a {
+  display: flex;
+  align-items: center;
+
   font-weight: 600;
   border-radius: 25px;
   border: 1px solid #bb371a;
   color: #bb371a;
+  fill: #bb371a;
 
   padding: 1rem;
   margin: 0 2rem;
 
-  transition: color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .link:hover,
@@ -45,10 +49,11 @@
   color: #005a8d;
   border-color: #005a8d;
   transition: all 0.2s ease;
+  fill: #005a8d;
 }
 
-.icon {
-  padding: 2rem;
-  cursor: pointer;
-  margin: 0 2rem;
+.link svg {
+  margin: 0 0.25rem 0 0;
+  height: 15px;
+  width: 15px;
 }

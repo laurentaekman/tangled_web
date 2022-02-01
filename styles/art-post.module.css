@@ -35,6 +35,32 @@
   font-size: larger;
   font-weight: bold;
 }
+.description button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  border-radius: 25px;
+  border: 1px solid #bb371a;
+  color: #bb371a;
+  padding: 0.75rem;
+  transition: all 0.2s ease;
+  fill: #bb371a;
+  background: transparent;
+}
+.description button:hover,
+.description button:active {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #005a8d;
+  color: #005a8d;
+  fill: #005a8d;
+}
+.description button svg {
+  height: 15px;
+  width: 15px;
+  margin: 0 0.25rem 0 0;
+}
 
 .loader,
 .small_loader {

@@ -100,7 +100,7 @@ export default function ArtPost() {
 }
 
 export interface ArtObject {
-  id: string;
+  id: number;
   title: string;
   objectBeginDate: string;
   objectEndDate: string;
@@ -116,7 +116,7 @@ export interface ArtObject {
 }
 
 export interface APIArtObject {
-  objectID: string;
+  objectID: number;
   title: string;
   department: string;
   objectBeginDate: string;
@@ -131,7 +131,7 @@ export interface APIArtObject {
   objectName: string;
 }
 
-const convertArtObject = (apiObject: APIArtObject): ArtObject => {
+export const convertArtObject = (apiObject: APIArtObject): ArtObject => {
   return {
     id: apiObject.objectID,
     title: apiObject.title ?? "",

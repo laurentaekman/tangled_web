@@ -1,3 +1,9 @@
+import {
+  APIArtObject,
+  ArtObject,
+  convertArtObject,
+} from "../pages/art-posts/[objectId]";
+
 export enum SearchTypes {
   artist = "artistOrCulture",
   department = "departmentId",
@@ -5,7 +11,7 @@ export enum SearchTypes {
   date = "dateBegin",
 }
 
-export const searchAndFetchObject = async (
+export const searchAndGetObject = async (
   searchType: SearchTypes,
   searchTerm: string,
   basicQuery: string,
@@ -45,7 +51,7 @@ export const generateHref = async (
   currentId: string
 ) => {
   let path = `/art-posts/`;
-  let objectId = await searchAndFetchObject(
+  let objectId = await searchAndGetObject(
     searchType,
     searchTerm,
     basicQuery,
@@ -53,4 +59,27 @@ export const generateHref = async (
   );
 
   return path + objectId;
+};
+
+export const getArtObjects = async (objectIDs: number[]): Promise<any[]> => {
+  const objectPromises = objectIDs.map(async (objectID) => {
+    const response = await fetch(
+      `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
+    );
+    const data = await response.json();
+    return data;
+  });
+  const objects = await Promise.all(objectPromises);
+  return objects;
+};
+
+export const getArtObject = async (objectId: number) => {
+  if (objectId) {
+    const response = await fetch(
+      `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectId}`
+    );
+    const output: APIArtObject = await response.json();
+    const artObject: ArtObject = convertArtObject(output);
+    return artObject ?? {};
+  }
 };

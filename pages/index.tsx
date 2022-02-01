@@ -6,6 +6,8 @@ import styles from "../styles/Home.module.css";
 import ArtObjectCard from "../components/ArtObjectCard";
 import ObjectsContext from "../context/objects-context";
 import Header from "../components/Header";
+import { getArtObjects } from "../utils/utils";
+import { useFavorites } from "../hooks/use-favorites";
 
 /*
 TODO:
@@ -13,51 +15,48 @@ TODO:
 - Create better layout for initial options
 */
 const Home: NextPage = () => {
-  const initialObjectIDArray: number[] = [];
+  const initialObjectIdArray: number[] = [];
   const initialObjectArray: any[] = [];
 
-  const [startingObjectIDs, setStartingObjectIDs] =
-    useState(initialObjectIDArray);
+  const [startingObjectIds, setStartingObjectIds] =
+    useState(initialObjectIdArray);
   const [startingObjects, setStartingObjects] = useState(initialObjectArray);
   const [isLoading, setIsLoading] = useState(false);
   const objectsContext = useContext(ObjectsContext);
+  const [favorites, addFavorite, removeFavorite] = useFavorites();
+  //console.log(favorites);
 
   useEffect(() => {
+    // console.log(favorites);
+    // removeFavorite();
     setIsLoading(true);
-    async function getRandomObjectIDs() {
-      const data = objectsContext.objectIDs;
-      const randomObjectIDs: number[] = [];
+    async function getRandomObjectIds() {
+      const data = objectsContext.objectIds;
+      const randomObjectIds: number[] = [];
       for (let i = 0; i < 3; i++) {
         let randomIndex = Math.floor(Math.random() * (data.length - 0 + 1));
-        randomObjectIDs.push(data[randomIndex]);
+        randomObjectIds.push(data[randomIndex]);
       }
-      setStartingObjectIDs(randomObjectIDs);
+      setStartingObjectIds(randomObjectIds);
     }
-    if (objectsContext.objectIDs.length > 0) {
-      getRandomObjectIDs();
+    if (objectsContext.objectIds.length > 0) {
+      getRandomObjectIds();
     }
   }, [objectsContext]);
 
   useEffect(() => {
-    async function getArtObjects(objectIDs: number[]) {
+    async function fetchArtObjects(objectIDs: number[]) {
       setIsLoading(true);
-      const objectPromises = objectIDs.map(async (objectID) => {
-        const response = await fetch(
-          `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
-        );
-        const data = await response.json();
-        return data;
-      });
-      const objects = await Promise.all(objectPromises);
+      const objects = await getArtObjects(objectIDs);
       setStartingObjects(objects);
       setIsLoading(false);
     }
-    if (startingObjectIDs.length > 0) {
-      getArtObjects(startingObjectIDs);
+    if (startingObjectIds.length > 0) {
+      fetchArtObjects(startingObjectIds);
     } else {
       setIsLoading(true);
     }
-  }, [startingObjectIDs]);
+  }, [startingObjectIds]);
 
   return (
     <div className={styles.container}>
@@ -69,7 +68,6 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <Header />
-        {/* <h1 className={styles.title}>Tangled Web (Art Edition)</h1> */}
         <h2>Get started by clicking one of the art pieces below.</h2>
         <div>
           Or click{" "}
@@ -78,7 +76,7 @@ const Home: NextPage = () => {
           </Link>
         </div>
 
-        {startingObjects.length > 0 && startingObjectIDs.length && !isLoading && (
+        {startingObjects.length > 0 && startingObjectIds.length && !isLoading && (
           <div className={styles.cards}>
             {startingObjects.map((object) => {
               return <ArtObjectCard artObject={object} key={object.objectID} />;

@@ -1,8 +1,13 @@
 import artPostStyles from "../styles/art-post.module.css";
 import Link from "next/link";
-import { SearchTypes, searchAndFetchObject } from "../utils/utils";
+import Image from "next/image";
+import { SearchTypes, searchAndGetObject } from "../utils/utils";
 import { useContext, useEffect, useState } from "react";
 import ObjectsContext from "../context/objects-context";
+import { useFavorites } from "../hooks/use-favorites";
+import { ArtObject } from "../pages/art-posts/[objectId]";
+import { HeartUnfilledIcon } from "../assets/HeartUnfilledIcon";
+import { HeartFilledIcon } from "../assets/HeartFilledIcon";
 
 interface Props {
   objectTitle: string;
@@ -16,7 +21,7 @@ interface Props {
   dimensions: string;
   department: string;
   objectName: string;
-  objectId: string;
+  objectId: number;
 }
 
 export default function ArtDescription({
@@ -43,6 +48,12 @@ export default function ArtDescription({
   const [dateHref, setDateHref] = useState<string>("");
   const [mediumHref, setMediumHref] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
+  const [favorites, addFavorite, removeFavorite] = useFavorites();
+  //console.log(favorites);
+  const isFavorited = favorites.some(
+    (favorite: ArtObject) => objectId === favorite.id
+  );
+  //console.log(isFavorited);
 
   const createArtistBio = (
     name: string,
@@ -116,11 +127,11 @@ export default function ArtDescription({
   useEffect(() => {
     async function getDepartmentPath() {
       setIsLoading(true);
-      const newDepartmentObject = await searchAndFetchObject(
+      const newDepartmentObject = await searchAndGetObject(
         SearchTypes.department,
         objectDepartment.departmentId,
         objectName,
-        objectId
+        objectId.toString()
       );
       if (newDepartmentObject) {
         setDepartmentHref(`/art-posts/${newDepartmentObject}`);
@@ -135,11 +146,11 @@ export default function ArtDescription({
   useEffect(() => {
     async function getArtistPath() {
       setIsLoading(true);
-      const newArtistObject = await searchAndFetchObject(
+      const newArtistObject = await searchAndGetObject(
         SearchTypes.artist,
         "true",
         artistName,
-        objectId
+        objectId.toString()
       );
       if (newArtistObject) {
         setArtistHref(`/art-posts/${newArtistObject}`);
@@ -154,11 +165,11 @@ export default function ArtDescription({
   useEffect(() => {
     async function getDatePath() {
       setIsLoading(true);
-      const newDateObject = await searchAndFetchObject(
+      const newDateObject = await searchAndGetObject(
         SearchTypes.date,
         `${objectBeginDate ?? ""} ${objectEndDate ?? ""}`.trim(),
         objectName,
-        objectId
+        objectId.toString()
       );
 
       //Tighten up date ranges when making requests
@@ -176,11 +187,11 @@ export default function ArtDescription({
     async function getMediumPath() {
       setIsLoading(true);
       const searchTerm = medium.split(" ")[0].replace(/\W/g, "");
-      const newMediumObject = await searchAndFetchObject(
+      const newMediumObject = await searchAndGetObject(
         SearchTypes.medium,
         searchTerm,
         objectName,
-        objectId
+        objectId.toString()
       );
 
       if (newMediumObject) {
@@ -195,6 +206,18 @@ export default function ArtDescription({
 
   return (
     <div className={artPostStyles.description}>
+      {!isFavorited && (
+        <button onClick={() => addFavorite(objectId)}>
+          <HeartUnfilledIcon />
+          Favorite this post
+        </button>
+      )}
+      {isFavorited && (
+        <button onClick={() => removeFavorite(objectId)}>
+          <HeartFilledIcon />
+          Unfavorite this post
+        </button>
+      )}
       <h1>{objectTitle}</h1>
       {dataToRender.map((data) => {
         return (
