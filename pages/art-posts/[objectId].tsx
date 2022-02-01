@@ -1,11 +1,17 @@
-import Link from "next/link";
+/* eslint-disable @next/next/no-img-element */
+import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import ArtDescription from "../../components/ArtDescription";
 import Frame from "../../components/Frame";
-import frameStyles from "../../components/Frame.module.css";
+import Header from "../../components/Header";
 import artPostStyles from "../../styles/art-post.module.css";
 
-export default function ArtPost(artObject: ArtObject) {
+export default function ArtPost() {
+  const router = useRouter();
+  const objectId = router.query.objectId;
+  const [artObject, setArtObject] = useState<ArtObject>();
+  const [error, setError] = useState<any>();
+  const [isLoading, setIsLoading] = useState(false);
   const [imageDimensions, setImageDimensions] = useState({
     height: 800,
     width: 768,
@@ -16,67 +22,85 @@ export default function ArtPost(artObject: ArtObject) {
   };
 
   useEffect(() => {
+    async function getArtObject() {
+      if (objectId && objectId !== "undefined") {
+        setIsLoading(true);
+        try {
+          const response = await fetch(
+            `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectId}`
+          );
+          const output = await response.json();
+          const artObject: APIArtObject = output;
+          //console.log(artObject);
+          setArtObject(convertArtObject(artObject));
+        } catch (error) {
+          setError(error);
+          console.log(error);
+        }
+        setIsLoading(false);
+      }
+    }
+    getArtObject();
+  }, [objectId]);
+
+  useEffect(() => {
     const image = new Image();
     image.onload = function () {
       setImageDimensions({
-        height: image.height,
-        width: image.width,
+        height: image.height / 1.25,
+        width: image.width / 1.25,
       });
     };
-    image.src = artObject.imageSource;
-  }, [artObject.imageSource]);
+    image.src = artObject?.imageSource ?? "";
+  }, [artObject?.imageSource]);
 
   return (
     <div className={artPostStyles.art_post}>
-      <div className={artPostStyles.sub_header}>
-        <Link href={"/"}>
-          <a>{"< Back to home"}</a>
-        </Link>
-      </div>
-      <h1>{artObject.title ?? ""}</h1>
-
-      {artObject?.imageSource && (
-        <Frame className={frameStyles.frame} dimensions={frameDimensions}>
-          <img
-            src={artObject.imageSource}
-            alt={artObject.title}
-            height={imageDimensions.height}
-            width={imageDimensions.width}
-            className={artPostStyles.image}
-          ></img>
-        </Frame>
-      )}
-      <hr></hr>
-      {artObject && (
-        <div>
-          <div>
-            Click any of the links below to find a new related piece of art.
+      <Header />
+      <div className={artPostStyles.post_items}>
+        {artObject?.imageSource && (
+          <Frame dimensions={frameDimensions}>
+            <img
+              src={artObject.imageSource}
+              alt={artObject.title}
+              height={imageDimensions.height}
+              width={imageDimensions.width}
+            />
+          </Frame>
+        )}
+        {artObject && !isLoading && !error && (
+          <div className={artPostStyles.description_info}>
+            {/* <div>
+              <p>
+                Click any of the links below to find a new related piece of art.
+              </p>
+              <p>Otherwise, return to Home for more randomized pieces!</p>
+            </div> */}
+            <ArtDescription
+              objectTitle={artObject.title}
+              artistName={artObject.artistName}
+              artistNationality={artObject.artistNationality}
+              artistBirthYear={artObject.artistBirthYear}
+              artistDeathYear={artObject.artistDeathYear}
+              objectBeginDate={artObject.objectBeginDate}
+              objectEndDate={artObject.objectEndDate}
+              medium={artObject.medium}
+              dimensions={artObject.dimensions}
+              department={artObject.department}
+              objectName={artObject.objectName}
+              objectId={artObject.id}
+            />
           </div>
-          <div>Otherwise, return to Home for new randomized pieces!</div>
-        </div>
-      )}
-      <hr></hr>
-      {artObject?.id && (
-        <ArtDescription
-          artistName={artObject.artistName}
-          artistNationality={artObject.artistNationality}
-          artistBirthYear={artObject.artistBirthYear}
-          artistDeathYear={artObject.artistDeathYear}
-          objectBeginDate={artObject.objectBeginDate}
-          objectEndDate={artObject.objectEndDate}
-          medium={artObject.medium}
-          dimensions={artObject.dimensions}
-          department={artObject.department}
-          objectName={artObject.objectName}
-        />
-      )}
-      {!artObject.id && <div>There was an error while retrieving data.</div>}
+        )}
+      </div>
+      {isLoading && <div className={artPostStyles.loader}></div>}
+      {error && <div>There was an error while retrieving data.</div>}
     </div>
   );
 }
 
 export interface ArtObject {
-  id: string;
+  id: number;
   title: string;
   objectBeginDate: string;
   objectEndDate: string;
@@ -92,7 +116,7 @@ export interface ArtObject {
 }
 
 export interface APIArtObject {
-  objectID: string;
+  objectID: number;
   title: string;
   department: string;
   objectBeginDate: string;
@@ -107,7 +131,7 @@ export interface APIArtObject {
   objectName: string;
 }
 
-const convertArtObject = (apiObject: APIArtObject): ArtObject => {
+export const convertArtObject = (apiObject: APIArtObject): ArtObject => {
   return {
     id: apiObject.objectID,
     title: apiObject.title ?? "",
@@ -124,7 +148,7 @@ const convertArtObject = (apiObject: APIArtObject): ArtObject => {
     objectName: apiObject.objectName,
   };
 };
-
+/*
 export const getStaticProps = async (context) => {
   const objectId = context.params.objectId;
   if (objectId && objectId !== "undefined") {
@@ -166,3 +190,4 @@ export const getStaticPaths = async () => {
     //paths: listOfObjectIDs.map((objectID) => `/art-posts/${objectID}`),
   };
 };
+*/

@@ -1,48 +1,85 @@
+import {
+  APIArtObject,
+  ArtObject,
+  convertArtObject,
+} from "../pages/art-posts/[objectId]";
+
 export enum SearchTypes {
   artist = "artistOrCulture",
   department = "departmentId",
   medium = "medium",
+  date = "dateBegin",
 }
 
-export const searchAndFetchObject = async (
+export const searchAndGetObject = async (
   searchType: SearchTypes,
   searchTerm: string,
-  basicQuery: string
+  basicQuery: string,
+  currentId: string
 ) => {
   try {
     let requestUrl = `https://collectionapi.metmuseum.org/public/collection/v1/search`;
-    //Formatted specifically for department right now
-    requestUrl = requestUrl + `?${searchType}=${searchTerm}&q=${basicQuery}`;
+
+    if (searchType !== SearchTypes.date) {
+      requestUrl = requestUrl + `?${searchType}=${searchTerm}&q=${basicQuery}`;
+    } else {
+      let queryParameters = `?`;
+      const dates = searchTerm.split(" ");
+      const start = dates[0];
+      const end = dates[1];
+      start ? (queryParameters += `dateBegin=${start}`) : "";
+      end ? (queryParameters += `${start ? "&" : ""}dateEnd=${start}`) : "";
+
+      requestUrl = requestUrl + `?${queryParameters}&q=${basicQuery}`;
+    }
+
     const response = await fetch(requestUrl);
     const data = await response.json();
-    const objectId = data.objectIDs[0];
+    const objectId = data.objectIDs.find((object: any) => object !== currentId);
     return objectId;
   } catch (error) {
     console.log("Couldn't fetch a new object!");
   }
+
   return null;
 };
 
 export const generateHref = async (
   searchType: SearchTypes,
   searchTerm: string,
-  basicQuery: string
+  basicQuery: string,
+  currentId: string
 ) => {
   let path = `/art-posts/`;
-  switch (searchType) {
-    case "departmentId":
-      const newObjectId = await searchAndFetchObject(
-        searchType,
-        searchTerm,
-        basicQuery
-      );
-      path = path + newObjectId;
-      break;
-    default:
-      console.log("There was no search query match.");
-      break;
-  }
+  let objectId = await searchAndGetObject(
+    searchType,
+    searchTerm,
+    basicQuery,
+    currentId
+  );
 
-  console.log(path);
-  return path;
+  return path + objectId;
+};
+
+export const getArtObjects = async (objectIDs: number[]): Promise<any[]> => {
+  const objectPromises = objectIDs.map(async (objectID) => {
+    const response = await fetch(
+      `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
+    );
+    const data = await response.json();
+    return data;
+  });
+  const objects = await Promise.all(objectPromises);
+  return objects;
+};
+
+export const getArtObject = async (objectId: number) => {
+  if (objectId) {
+    const response = await fetch(
+      `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectId}`
+    );
+    const output: APIArtObject = await response.json();
+    const artObject: ArtObject = convertArtObject(output);
+    return artObject ?? {};
+  }
 };

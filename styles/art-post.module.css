@@ -1,36 +1,31 @@
 .art_post {
   margin: 2rem 0;
+  padding: 10rem 0 0 0;
+  overflow: hidden;
+}
+
+.post_items {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.description_info {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  /* color: #265e93; */
-  /* background: #ece8d3; */
-}
-
-.sub_header {
-  width: 100%;
-  padding: 0 0 0 1rem;
-  display: flex;
-  align-items: flex-start;
-}
-
-.image {
-  max-width: 48rem;
-  max-height: 37.5rem;
-  position: relative;
-  top: 17.5rem;
-  transition: transform 0.2s; /* Animation */
-
-  /* make this smarter in terms of positioning */
-}
-.image:hover {
-  transform: scale(1.5);
+  text-align: center;
 }
 
 .description {
-  width: 75%;
+  max-width: 70vh;
+  min-width: 50vh;
   background: #d5dbb3;
+  border: 1px solid #bb371a;
   padding: 2rem;
+  text-align: left;
 }
 .description > div {
   padding: 0 0 1rem 0;
@@ -39,4 +34,55 @@
   border-bottom: 1px solid #bb371a;
   font-size: larger;
   font-weight: bold;
+}
+.description button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  border-radius: 25px;
+  border: 1px solid #bb371a;
+  color: #bb371a;
+  padding: 0.75rem;
+  transition: all 0.2s ease;
+  fill: #bb371a;
+  background: transparent;
+}
+.description button:hover,
+.description button:active {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #005a8d;
+  color: #005a8d;
+  fill: #005a8d;
+}
+.description button svg {
+  height: 15px;
+  width: 15px;
+  margin: 0 0.25rem 0 0;
+}
+
+.loader,
+.small_loader {
+  border: 0.5rem solid #f3e9ba;
+  border-top: 0.5rem solid #005a8d;
+  border-radius: 100%;
+  width: 10rem;
+  height: 10rem;
+  margin: auto;
+  animation: spin 0.75s ease-in-out infinite;
+}
+
+.small_loader {
+  width: 2rem;
+  height: 2rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

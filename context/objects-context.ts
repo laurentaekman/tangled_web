@@ -1,10 +1,10 @@
 import React, { createContext, useContext } from "react";
 
-const initialObjectIDList: number[] = [];
+const initialObjectIdList: number[] = [];
 const initialDepartmentsList: any[] = [];
 
 const ObjectsContext = React.createContext({
-  objectIDs: initialObjectIDList,
+  objectIds: initialObjectIdList,
   departments: initialDepartmentsList,
 });
 
