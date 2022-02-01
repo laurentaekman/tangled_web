@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   APIArtObject,
   ArtObject,
@@ -13,6 +13,7 @@ import { getArtObjects } from "../utils/utils";
 export const useFavorites = (): any[] => {
   const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
   const [favorites, setFavorites] = useState<ArtObject[]>([]);
+  let notFirstRender = useRef(false);
 
   useEffect(() => {
     setFavoriteIds(grabFavoritesFromStorage());
@@ -32,7 +33,11 @@ export const useFavorites = (): any[] => {
   }, [favoriteIds]);
 
   useEffect(() => {
-    setFavoritesInStorage(favoriteIds);
+    if (notFirstRender.current) {
+      setFavoritesInStorage(favoriteIds);
+    } else {
+      notFirstRender.current = true;
+    }
   }, [favoriteIds]);
 
   const addFavorite = (objectId: number) => {

@@ -28,6 +28,7 @@
 }
 
 .link,
+.link button,
 .link a {
   display: flex;
   align-items: center;
@@ -37,6 +38,7 @@
   border: 1px solid #bb371a;
   color: #bb371a;
   fill: #bb371a;
+  background: transparent;
 
   padding: 1rem;
   margin: 0 2rem;
@@ -44,8 +46,7 @@
   transition: all 0.2s ease;
 }
 
-.link:hover,
-.link:focus {
+.link:hover {
   color: #005a8d;
   border-color: #005a8d;
   transition: all 0.2s ease;
