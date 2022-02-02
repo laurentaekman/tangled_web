@@ -35,7 +35,10 @@ export const searchAndGetObject = async (
 
     const response = await fetch(requestUrl);
     const data = await response.json();
-    const objectId = data.objectIDs.find((object: any) => object !== currentId);
+    const objectId = data.objectIDs.find((object: any) => object != currentId);
+    if (!objectId) {
+      throw new Error();
+    }
     return objectId;
   } catch (error) {
     console.log("Couldn't fetch a new object!");

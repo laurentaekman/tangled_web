@@ -16,7 +16,7 @@
 
 .favorites_object_name {
   font-size: x-large;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .favorites_row {
@@ -79,16 +79,15 @@
   justify-content: center;
   width: 100%;
   height: 80%;
-  /* max-width: 50vh;
-  max-height: 50%; */
-  /* text-indent: -60%; */
 
   overflow: hidden;
   /* clip-path: inset(15vh 0 0 0); */
 }
 
 .favorites_row_text {
-  width: 20%;
+  display: flex;
+  flex-flow: column wrap;
+  width: 30%;
   padding: 0 0 0 1rem;
 }
 

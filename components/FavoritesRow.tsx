@@ -15,11 +15,21 @@ interface Props {
 export const FavoritesRow = ({ item, removeFavorite }: Props) => {
   const [isFavorited, setIsFavorited] = useState(true);
 
+  const truncateString = (text: string) => {
+    if (text.split(" ").length > 7) {
+      //Filter for odd characters on last element? .replace(/\W/g, "")
+      return text.split(" ").slice(0, 7).join(" ") + "...";
+    }
+    return text;
+  };
+
   return (
     <CSSTransition in={isFavorited} timeout={200} classNames={{ ...styles }}>
       <div className={styles.favorites_row}>
         <div className={styles.favorites_row_text}>
-          <p className={styles.favorites_object_name}>{item.objectName}</p>
+          <p className={styles.favorites_object_name}>
+            {truncateString(item.title)}
+          </p>
           <p>{item.artistName}</p>
         </div>
 
