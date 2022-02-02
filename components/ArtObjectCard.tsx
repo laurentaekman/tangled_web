@@ -17,6 +17,7 @@ export default function ArtObjectCard({ artObject }: Props) {
           {artObject.artistDisplayName && (
             <p>by: {artObject.artistDisplayName}</p>
           )}
+
           {artObject.primaryImageSmall && (
             <div className={styles.cropped_image}>
               <img

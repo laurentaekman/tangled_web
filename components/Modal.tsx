@@ -1,4 +1,4 @@
-import { ArtObject } from "../pages/art-posts/[objectId]";
+import { ArtObject } from "../utils/types";
 import { ModalRow } from "./ModalRow";
 import styles from "../styles/Modal.module.css";
 

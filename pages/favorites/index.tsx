@@ -2,7 +2,7 @@ import { FavoritesRow } from "../../components/FavoritesRow";
 import styles from "../../styles/Favorites.module.css";
 import Header from "../../components/Header";
 import { useFavorites } from "../../hooks/use-favorites";
-import { ArtObject } from "../art-posts/[objectId]";
+import { ArtObject } from "../../utils/types";
 
 const Favorites = () => {
   const [favorites, addFavorite, removeFavorite] = useFavorites();

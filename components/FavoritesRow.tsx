@@ -4,7 +4,7 @@ import { useState } from "react";
 import { HeartFilledIcon } from "../assets/HeartFilledIcon";
 import { HeartUnfilledIcon } from "../assets/HeartUnfilledIcon";
 import { RightArrowIcon } from "../assets/RightArrowIcon";
-import { ArtObject } from "../pages/art-posts/[objectId]";
+import { ArtObject } from "../utils/types";
 import { truncateString } from "../utils/text";
 import styles from "../styles/Favorites.module.css";
 

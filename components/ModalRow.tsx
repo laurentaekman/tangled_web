@@ -1,5 +1,5 @@
 import { HeartFilledIcon } from "../assets/HeartFilledIcon";
-import { ArtObject } from "../pages/art-posts/[objectId]";
+import { ArtObject } from "../utils/types";
 import styles from "../styles/Modal.module.css";
 
 interface Props {

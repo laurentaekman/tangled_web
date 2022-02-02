@@ -1,8 +1,4 @@
-import {
-  APIArtObject,
-  ArtObject,
-  convertArtObject,
-} from "../pages/art-posts/[objectId]";
+import { APIArtObject, ArtObject, convertArtObject } from "../utils/types";
 
 export enum SearchTypes {
   artist = "artistOrCulture",

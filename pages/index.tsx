@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 import ArtObjectCard from "../components/ArtObjectCard";
 import ObjectsContext from "../context/objects-context";
 import Header from "../components/Header";
-import { getArtObjects } from "../utils/utils";
+import { getArtObjects } from "../utils/api";
 
 /*
 TODO:

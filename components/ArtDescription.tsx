@@ -1,10 +1,10 @@
 import artPostStyles from "../styles/art-post.module.css";
 import Link from "next/link";
-import { SearchTypes, searchAndGetObject } from "../utils/utils";
+import { SearchTypes, searchAndGetObject } from "../utils/api";
 import { useContext, useEffect, useState } from "react";
 import ObjectsContext from "../context/objects-context";
 import { useFavorites } from "../hooks/use-favorites";
-import { ArtObject } from "../pages/art-posts/[objectId]";
+import { ArtObject } from "../utils/types";
 import { HeartUnfilledIcon } from "../assets/HeartUnfilledIcon";
 import { HeartFilledIcon } from "../assets/HeartFilledIcon";
 

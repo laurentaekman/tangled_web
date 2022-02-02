@@ -1,14 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  APIArtObject,
-  ArtObject,
-  convertArtObject,
-} from "../pages/art-posts/[objectId]";
+import { APIArtObject, ArtObject, convertArtObject } from "../utils/types";
 import {
   grabFavoritesFromStorage,
   setFavoritesInStorage,
 } from "../utils/storage";
-import { getArtObjects } from "../utils/utils";
+import { getArtObjects } from "../utils/api";
 
 export const useFavorites = (): any[] => {
   const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
