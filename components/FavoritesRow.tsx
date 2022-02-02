@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { CSSTransition } from "react-transition-group";
+import { useState } from "react";
 import { HeartFilledIcon } from "../assets/HeartFilledIcon";
+import { HeartUnfilledIcon } from "../assets/HeartUnfilledIcon";
 import { RightArrowIcon } from "../assets/RightArrowIcon";
 import { ArtObject } from "../pages/art-posts/[objectId]";
 import styles from "../styles/Favorites.module.css";
@@ -10,28 +13,38 @@ interface Props {
 }
 
 export const FavoritesRow = ({ item, removeFavorite }: Props) => {
-  return (
-    <div className={styles.favorites_row}>
-      <div className={styles.favorites_row_text}>
-        <p className={styles.favorites_object_name}>{item.objectName}</p>
-        <p>{item.artistName}</p>
-      </div>
+  const [isFavorited, setIsFavorited] = useState(true);
 
-      {item.imageSource && (
-        <div className={styles.favorites_cropped_image}>
-          <img src={item.imageSource} alt={item.objectName} />
+  return (
+    <CSSTransition in={isFavorited} timeout={200} classNames={{ ...styles }}>
+      <div className={styles.favorites_row}>
+        <div className={styles.favorites_row_text}>
+          <p className={styles.favorites_object_name}>{item.objectName}</p>
+          <p>{item.artistName}</p>
         </div>
-      )}
-      <div className={styles.favorites_action_items}>
-        <button onClick={() => removeFavorite(item.id)}>
-          <HeartFilledIcon />
-        </button>
-        <Link href={`/art-posts/${item.id}`}>
-          <a>
-            <RightArrowIcon />
-          </a>
-        </Link>
+
+        {item.imageSource && (
+          <div className={styles.favorites_cropped_image}>
+            <img src={item.imageSource} alt={item.objectName} />
+          </div>
+        )}
+        <div className={styles.favorites_action_items}>
+          <button
+            onClick={() => {
+              setIsFavorited(false);
+              removeFavorite(item.id);
+            }}
+          >
+            {isFavorited && <HeartFilledIcon />}
+            {!isFavorited && <HeartUnfilledIcon />}
+          </button>
+          <Link href={`/art-posts/${item.id}`}>
+            <a>
+              <RightArrowIcon />
+            </a>
+          </Link>
+        </div>
       </div>
-    </div>
+    </CSSTransition>
   );
 };

@@ -78,7 +78,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 12vh;
+  height: 80%;
   /* max-width: 50vh;
   max-height: 50%; */
   /* text-indent: -60%; */
@@ -103,4 +103,15 @@
 .favorites_action_items a,
 .favorites_action_items button {
   margin: 0 0 0 1rem;
+}
+
+.exit {
+  opacity: 1;
+}
+.exitActive {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+.exitDone {
+  opacity: 0;
 }

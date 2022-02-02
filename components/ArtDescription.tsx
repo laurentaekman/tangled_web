@@ -1,6 +1,5 @@
 import artPostStyles from "../styles/art-post.module.css";
 import Link from "next/link";
-import Image from "next/image";
 import { SearchTypes, searchAndGetObject } from "../utils/utils";
 import { useContext, useEffect, useState } from "react";
 import ObjectsContext from "../context/objects-context";
@@ -49,11 +48,10 @@ export default function ArtDescription({
   const [mediumHref, setMediumHref] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [favorites, addFavorite, removeFavorite] = useFavorites();
-  //console.log(favorites);
+
   const isFavorited = favorites.some(
     (favorite: ArtObject) => objectId === favorite.id
   );
-  //console.log(isFavorited);
 
   const createArtistBio = (
     name: string,
