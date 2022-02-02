@@ -7,7 +7,6 @@ import ArtObjectCard from "../components/ArtObjectCard";
 import ObjectsContext from "../context/objects-context";
 import Header from "../components/Header";
 import { getArtObjects } from "../utils/utils";
-import { useFavorites } from "../hooks/use-favorites";
 
 /*
 TODO:
@@ -23,12 +22,8 @@ const Home: NextPage = () => {
   const [startingObjects, setStartingObjects] = useState(initialObjectArray);
   const [isLoading, setIsLoading] = useState(false);
   const objectsContext = useContext(ObjectsContext);
-  const [favorites, addFavorite, removeFavorite] = useFavorites();
-  //console.log(favorites);
 
   useEffect(() => {
-    // console.log(favorites);
-    // removeFavorite();
     setIsLoading(true);
     async function getRandomObjectIds() {
       const data = objectsContext.objectIds;

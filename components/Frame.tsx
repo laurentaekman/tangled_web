@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "./Frame.module.css";
+import styles from "../styles/Frame.module.css";
 
 interface Props {
   children: any;

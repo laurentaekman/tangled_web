@@ -5,6 +5,7 @@ import { HeartFilledIcon } from "../assets/HeartFilledIcon";
 import { HeartUnfilledIcon } from "../assets/HeartUnfilledIcon";
 import { RightArrowIcon } from "../assets/RightArrowIcon";
 import { ArtObject } from "../pages/art-posts/[objectId]";
+import { truncateString } from "../utils/text";
 import styles from "../styles/Favorites.module.css";
 
 interface Props {
@@ -15,20 +16,12 @@ interface Props {
 export const FavoritesRow = ({ item, removeFavorite }: Props) => {
   const [isFavorited, setIsFavorited] = useState(true);
 
-  const truncateString = (text: string) => {
-    if (text.split(" ").length > 7) {
-      //Filter for odd characters on last element? .replace(/\W/g, "")
-      return text.split(" ").slice(0, 7).join(" ") + "...";
-    }
-    return text;
-  };
-
   return (
     <CSSTransition in={isFavorited} timeout={200} classNames={{ ...styles }}>
       <div className={styles.favorites_row}>
         <div className={styles.favorites_row_text}>
           <p className={styles.favorites_object_name}>
-            {truncateString(item.title)}
+            {truncateString(item.title, 7)}
           </p>
           <p>{item.artistName}</p>
         </div>

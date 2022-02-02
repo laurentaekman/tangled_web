@@ -34,6 +34,10 @@
   border: 1px solid #bb371a;
   border-radius: 25px;
 }
+.favorites_row:hover {
+  background: #f3e9ba;
+  transition: all 0.3s ease;
+}
 .favorites_row a {
   fill: #bb371a;
 }
@@ -68,6 +72,7 @@
   width: 1rem;
 }
 .favorites_row button:hover {
+  cursor: pointer;
   color: #005a8d;
   border-color: #005a8d;
   transition: all 0.2s ease;
