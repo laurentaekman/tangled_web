@@ -6,7 +6,12 @@
   flex-flow: column nowrap;
   align-items: center;
 }
-.favorites > div {
+.favorites main {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+.favorites > main > div {
   padding: 0 0 0.5rem 0;
 }
 .favorites h2 {
