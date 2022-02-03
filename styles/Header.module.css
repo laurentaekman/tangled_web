@@ -1,7 +1,7 @@
 .header {
   background: var(--secondary-background-color);
-  color: var(--secondary-text-color);
-  border-bottom: 1px solid var(--secondary-text-color);
+  color: var(--primary-text-color);
+  border-bottom: 1px solid var(--outline-color);
 
   position: absolute;
   top: 0px;
@@ -17,10 +17,12 @@
 }
 
 .header h1 {
-  margin: 0;
-  padding: 0;
+  padding: 1rem 2rem;
   align-self: center;
   justify-self: center;
+
+  background: var(--tertiary-background-color);
+  border-radius: 25px;
 }
 
 .header_text {
@@ -39,7 +41,8 @@
   border: 1px solid var(--outline-color);
   color: var(--outline-color);
   fill: var(--outline-color);
-  background: transparent;
+  background: var(--tertiary-background-color);
+  /* background: transparent; */
 
   padding: 1rem;
   margin: 0 2rem;

@@ -4,43 +4,48 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import styles from "../styles/WelcomePage.module.css";
 import ObjectsContext from "../context/objects-context";
-import { getArtObject } from "../utils/api";
+import { getArtObjects } from "../utils/api";
 import { useFavorites } from "../hooks/use-favorites";
 import { ArtObject } from "../utils/types";
 import { RightArrowIcon } from "../assets/RightArrowIcon";
+import { QuestionIcon } from "../assets/QuestionIcon";
 
 const WelcomePage: NextPage = () => {
-  const initialObjectIdArray: number[] = [];
-  const initialObjectArray: any[] = [];
-
-  const [startingObjectIds, setStartingObjectIds] =
-    useState(initialObjectIdArray);
-  const [startingObjects, setStartingObjects] = useState(initialObjectArray);
-  const [artObject, setArtObject] = useState<ArtObject>();
+  const [artObjects, setArtObjects] = useState<ArtObject[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [favorites] = useFavorites();
   const objectsContext = useContext(ObjectsContext);
 
   useEffect(() => {
-    let newObject;
+    let newObjects: ArtObject[] = [];
     const objectIds: number[] = objectsContext.objectWithImagesIds;
-    if (favorites.length > 0) {
-      newObject = favorites.find((favorite: ArtObject) => favorite.imageSource);
+    if (favorites.length > 2) {
+      newObjects = favorites
+        .filter((favorite: ArtObject) => favorite.imageSource)
+        .splice(0, 2);
+      console.log(newObjects);
     }
 
-    const getObject = async () => {
-      let object;
-      const randomIndex = Math.floor(
-        Math.random() * (objectIds.length - 0 + 1)
-      );
-      object = await getArtObject(objectIds[randomIndex]);
-      setArtObject(object);
+    const getObjects = async () => {
+      let objects;
+      let indexes: number[] = [];
+      for (let i = 0; i < 2; i++) {
+        let newIndex = Math.floor(Math.random() * (objectIds.length - 0 + 1));
+        if (!indexes.some((index) => index === newIndex)) {
+          newIndex = Math.floor(Math.random() * (newIndex - 0 + 1));
+        }
+        indexes.push(newIndex);
+      }
+      const newObjectIds = indexes.map((index) => objectIds[index]);
+      objects = await getArtObjects(newObjectIds);
+      console.log(objects);
+      setArtObjects(objects);
     };
 
-    if (!newObject && objectIds.length > 0) {
-      getObject();
+    if (newObjects.length < 2 && objectIds.length > 0) {
+      getObjects();
     } else {
-      setArtObject(newObject);
+      setArtObjects(newObjects);
     }
   }, [favorites, objectsContext.objectWithImagesIds]);
 
@@ -52,11 +57,37 @@ const WelcomePage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        {artObject?.imageSource && (
-          <div className={styles.main_cropped_image}>
-            <img src={artObject.imageSource} />
+        <div className={styles.images}>
+          <div className={styles.primary_image_frame}>
+            <div className={styles.primary_cropped_image}>
+              {artObjects[0] ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={artObjects[0].imageSource}
+                  alt={artObjects[0].title}
+                  className={styles.primary_image}
+                />
+              ) : (
+                <QuestionIcon />
+              )}
+            </div>
           </div>
-        )}
+          <div className={styles.secondary_image_frame}>
+            <div className={styles.secondary_cropped_image}>
+              {artObjects[1] ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={artObjects[1].imageSource}
+                  alt={artObjects[1].title}
+                  className={styles.secondary_image}
+                />
+              ) : (
+                <QuestionIcon />
+              )}
+            </div>
+          </div>
+        </div>
+
         <div className={styles.main_text}>
           <h1>Tangled Web</h1>
           <h2>

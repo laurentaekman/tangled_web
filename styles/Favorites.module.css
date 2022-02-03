@@ -15,7 +15,7 @@
   padding: 0 0 0.5rem 0;
 }
 .favorites h2 {
-  padding: 2rem 0 0 0;
+  padding: 1rem 0 0 0;
   font-size: xx-large;
 }
 
@@ -40,7 +40,7 @@
   border-radius: 25px;
 }
 .favorites_row:hover {
-  background: #f3e9ba;
+  background: var(--hover-background-color);
   transition: all 0.3s ease;
 }
 .favorites_row a {

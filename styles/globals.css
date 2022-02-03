@@ -2,13 +2,14 @@
 
 :root {
   --primary-background-color: #4b6448;
-  --secondary-background-color: #a89a82;
+  --secondary-background-color: #968974;
+  --tertiary-background-color: #423f37;
   --card-color: #6a8a66;
   --hover-background-color: #577454;
   --primary-text-color: white;
   --secondary-text-color: black;
   --outline-color: white;
-  --action-color: #dff7b7;
+  --action-color: #deff92;
   --loader-color: #f3e9ba;
   /* --main-background-color: #fff8d9;
   --secondary-background-color: #eba83a;
