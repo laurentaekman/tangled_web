@@ -1,9 +1,17 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Baskerville:wght@400;500&display=swap"); */
+:root {
+  --main-background-color: #fff8d9;
+  --secondary-background-color: #eba83a;
+  --card-color: #d5dbb3;
+  --outline-color: #bb371a;
+  --action-color: #005a8d;
+  --loader-color: #f3e9ba;
+}
 
 html,
 body {
-  background: #fff8d9;
-  color: #bb371a;
+  background: var(--main-background-color);
+  color: var(--outline-color);
   padding: 0;
   margin: 0;
   font-family: "Baskerville";
@@ -12,12 +20,12 @@ body {
 }
 
 a {
-  color: #005a8d;
+  color: var(--action-color);
   text-decoration: none;
 }
 
 h1 {
-  background: #d5dbb3;
+  background: var(--card-color);
   padding: 2rem;
   width: 100%;
   text-align: center;

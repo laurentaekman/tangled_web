@@ -4,8 +4,8 @@
 }
 
 .loader {
-  border: 0.5rem solid #f3e9ba;
-  border-top: 0.5rem solid #005a8d;
+  border: 0.5rem solid var(--loader-color);
+  border-top: 0.5rem solid var(--action-color);
   border-radius: 100%;
   width: 10rem;
   height: 10rem;

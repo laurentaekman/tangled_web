@@ -11,9 +11,9 @@
 
   text-align: center;
 
-  background: #d5dbb3;
-  fill: #bb371a;
-  border: 1px solid #bb371a;
+  background: var(--card-color);
+  fill: var(--outline-color);
+  border: 1px solid var(--outline-color);
   border-radius: 10px;
 
   transition: all 0.2s ease;
@@ -45,9 +45,9 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #005a8d;
-  fill: #005a8d;
-  border-color: #005a8d;
+  color: var(--action-color);
+  fill: var(--action-color);
+  border-color: var(--action-color);
   transform: scale(1.05);
   cursor: pointer;
 }
@@ -55,7 +55,7 @@
 .card h2 {
   padding: 1rem;
   font-size: 2rem;
-  background: #fff8d9;
+  background: var(--main-background-color);
   border-radius: 1rem;
 }
 
