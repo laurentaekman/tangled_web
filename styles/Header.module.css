@@ -1,7 +1,7 @@
 .header {
-  background: var(--card-color);
-  color: var(--outline-color);
-  border-bottom: 1px solid var(--outline-color);
+  background: var(--secondary-background-color);
+  color: var(--secondary-text-color);
+  border-bottom: 1px solid var(--secondary-text-color);
 
   position: absolute;
   top: 0px;

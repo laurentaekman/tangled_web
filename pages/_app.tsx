@@ -2,10 +2,13 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import ObjectsContext from "../context/objects-context";
 import { useEffect, useState } from "react";
+import { getArtObjectsWithImages } from "../utils/api";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const initialObjectIds: number[] = [];
   const [objectIds, setObjectIds] = useState(initialObjectIds);
+  const [objectWithImagesIds, setObjectsWithImagesIds] =
+    useState(initialObjectIds);
   const [departments, setDepartments] = useState(initialObjectIds);
 
   useEffect(() => {
@@ -18,6 +21,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       setObjectIds(objectIds);
     }
+    async function getObjectsWithImagesIds() {
+      const response = await getArtObjectsWithImages();
+      const data = response.objectIDs;
+      setObjectsWithImagesIds(data);
+    }
     async function getDepartments() {
       const response = await fetch(
         "https://collectionapi.metmuseum.org/public/collection/v1/departments"
@@ -27,26 +35,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       setDepartments(departments);
     }
-    getObjectIds();
-    getDepartments();
+    Promise.all([getObjectIds(), getObjectsWithImagesIds(), getDepartments()]);
   }, []);
 
   return (
-    <ObjectsContext.Provider value={{ objectIds, departments }}>
+    <ObjectsContext.Provider
+      value={{ objectIds, objectWithImagesIds, departments }}
+    >
       <Component {...pageProps} />
     </ObjectsContext.Provider>
   );
 }
 
 export default MyApp;
-
-/*
-TODOs/IDEAS
-- Link to other art posts based on search items
-  - Department X
-  - Artist X
-  - Medium? X
-  - Year created X
-- Favorite certain posts so you can return to them
-- Make entire site 'prettier'
-*/

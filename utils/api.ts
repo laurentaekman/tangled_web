@@ -82,3 +82,11 @@ export const getArtObject = async (objectId: number) => {
     return artObject ?? {};
   }
 };
+
+export const getArtObjectsWithImages = async () => {
+  const response = await fetch(
+    `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=the`
+  );
+  const objectIds = await response.json();
+  return objectIds;
+};

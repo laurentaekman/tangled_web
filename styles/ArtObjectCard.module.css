@@ -11,11 +11,17 @@
 
   text-align: center;
 
-  background: var(--card-color);
+  /* background: var(--secondary-background-color);
+  color: var(--secondary-text-color); */
   fill: var(--outline-color);
   border: 1px solid var(--outline-color);
   border-radius: 10px;
 
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  background: var(--hover-background-color);
   transition: all 0.2s ease;
 }
 
@@ -55,7 +61,7 @@
 .card h2 {
   padding: 1rem;
   font-size: 2rem;
-  background: var(--main-background-color);
+  background: var(--card-color);
   border-radius: 1rem;
 }
 

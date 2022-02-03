@@ -1,20 +1,34 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Baskerville:wght@400;500&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+
 :root {
-  --main-background-color: #fff8d9;
+  --primary-background-color: #4b6448;
+  --secondary-background-color: #a89a82;
+  --card-color: #6a8a66;
+  --hover-background-color: #577454;
+  --primary-text-color: white;
+  --secondary-text-color: black;
+  --outline-color: white;
+  --action-color: #dff7b7;
+  --loader-color: #f3e9ba;
+  /* --main-background-color: #fff8d9;
   --secondary-background-color: #eba83a;
   --card-color: #d5dbb3;
   --outline-color: #bb371a;
   --action-color: #005a8d;
-  --loader-color: #f3e9ba;
+  --loader-color: #f3e9ba; */
 }
 
 html,
 body {
-  background: var(--main-background-color);
+  background: var(--primary-background-color);
   color: var(--outline-color);
+
   padding: 0;
   margin: 0;
-  font-family: "Baskerville";
+
+  width: 100vw;
+  height: 100vh;
+  font-family: "Montserrat";
   /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
 }
@@ -23,8 +37,14 @@ a {
   color: var(--action-color);
   text-decoration: none;
 }
-
 h1 {
+  font-size: xx-large;
+}
+h2 {
+  font-size: x-large;
+}
+
+/* h1 {
   background: var(--card-color);
   padding: 2rem;
   width: 100%;
@@ -36,7 +56,7 @@ h2 {
 
 * {
   box-sizing: border-box;
-}
+} */
 
 /*
 PALETTE: 

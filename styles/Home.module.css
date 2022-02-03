@@ -1,7 +1,8 @@
-.container {
+/* .container {
   padding: 0 2rem;
   min-width: 71rem;
-}
+  background: var(--primary-background-color);
+} */
 
 .loader {
   border: 0.5rem solid var(--loader-color);

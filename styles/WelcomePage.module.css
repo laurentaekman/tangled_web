@@ -1,0 +1,145 @@
+/* .container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+} */
+
+.main {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+
+  height: 100vh;
+  width: 100vw;
+}
+
+.main_cropped_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+
+  overflow: hidden;
+}
+.main img {
+  height: 50vh;
+  width: 50vh;
+}
+
+.main_text {
+  background: var(--secondary-background-color);
+
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+
+  height: 50vh;
+  width: 30vh;
+
+  padding: 2rem;
+  border-radius: 25px;
+  text-align: center;
+}
+
+.main_text a {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  fill: var(--action-color);
+  border: 1px solid var(--action-color);
+  border-radius: 25px;
+  padding: 1rem;
+}
+
+.main_text svg {
+  height: 2rem;
+  width: 2rem;
+
+  margin: 0 0 0 1rem;
+}
+
+.loader {
+  border: 0.5rem solid var(--loader-color);
+  border-top: 0.5rem solid var(--action-color);
+  border-radius: 100%;
+  width: 10rem;
+  height: 10rem;
+  margin: auto;
+  animation: spin 0.75s ease-in-out infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* .container {
+  padding: 0 2rem;
+  min-width: 71rem;
+}
+
+.loader {
+  border: 0.5rem solid var(--loader-color);
+  border-top: 0.5rem solid var(--action-color);
+  border-radius: 100%;
+  width: 10rem;
+  height: 10rem;
+  margin: auto;
+  animation: spin 0.75s ease-in-out infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.main {
+  width: 100%;
+  min-height: 100vh;
+  padding: 4rem 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+.main h2 {
+  padding: 3rem 0 0 0;
+}
+.main img {
+  height: 70vh;
+  width: 70vw;
+}
+
+.title {
+  margin: 2rem 0 0 0;
+  line-height: 1.15;
+  font-size: 4rem;
+  border-radius: 1rem;
+}
+
+.title,
+.description {
+  text-align: center;
+}
+
+.description {
+  margin: 4rem 0;
+  line-height: 1.5;
+  font-size: 1.5rem;
+}
+
+.cards {
+  margin: 1rem 0 0 0;
+
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+} */
