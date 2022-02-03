@@ -68,7 +68,9 @@ const WelcomePage: NextPage = () => {
                   className={styles.primary_image}
                 />
               ) : (
-                <QuestionIcon />
+                <div className={styles.primary_image}>
+                  <QuestionIcon />
+                </div>
               )}
             </div>
           </div>
@@ -82,14 +84,16 @@ const WelcomePage: NextPage = () => {
                   className={styles.secondary_image}
                 />
               ) : (
-                <QuestionIcon />
+                <div className={styles.secondary_image}>
+                  <QuestionIcon />
+                </div>
               )}
             </div>
           </div>
         </div>
 
         <div className={styles.main_text}>
-          <h1>Tangled Web</h1>
+          <h1>Tangled Web (Art Edition)</h1>
           <h2>
             Explore a variety of pieces from the Metropolitan Museum of Art.
           </h2>

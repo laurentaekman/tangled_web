@@ -1,9 +1,3 @@
-/* .container {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-} */
-
 .main {
   display: flex;
   flex-flow: row nowrap;
@@ -12,6 +6,9 @@
 
   height: 100vh;
   width: 100vw;
+}
+.main h1 {
+  font-size: 4rem;
 }
 
 .images {

@@ -28,7 +28,7 @@ const Home: NextPage = () => {
     async function getRandomObjectIds() {
       const data = objectsContext.objectIds;
       const randomObjectIds: number[] = [];
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 6; i++) {
         let randomIndex = Math.floor(Math.random() * (data.length - 0 + 1));
         randomObjectIds.push(data[randomIndex]);
       }
@@ -64,12 +64,12 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Header />
         <h2>Get started by clicking one of the art pieces below.</h2>
-        <div>
+        {/* <div>
           Or click{" "}
           <Link href="/art-posts/436532">
             <a>this page!</a>
           </Link>
-        </div>
+        </div> */}
 
         {startingObjects.length > 0 && startingObjectIds.length && !isLoading && (
           <div className={styles.cards}>

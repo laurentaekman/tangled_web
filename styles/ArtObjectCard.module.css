@@ -3,8 +3,9 @@
   align-items: flex-start;
   justify-content: center;
 
-  width: 30%;
-  height: 70vh;
+  min-width: 25vw;
+  max-width: 25vw;
+  max-height: 30vh;
 
   margin: 1rem;
   padding: 1.5rem;
@@ -31,8 +32,8 @@
   align-items: center;
   justify-content: center;
 
-  height: 30vh;
-  margin: 1rem;
+  max-height: 30vh;
+  margin: 0 0 1rem 0;
 }
 .card_no_image svg {
   height: 5rem;
@@ -60,13 +61,13 @@
 
 .card h2 {
   padding: 1rem;
-  font-size: 2rem;
   background: var(--card-color);
   border-radius: 1rem;
 }
 
 .card p {
-  font-size: 1.25rem;
+  font-style: italic;
+  margin: -0.5rem 0 0.5rem 0;
 }
 
 .cropped_image {
@@ -76,7 +77,7 @@
   border-radius: 25px;
 
   width: 30vh;
-  height: 30vh;
+  height: 20vh;
 
   overflow: hidden;
 }

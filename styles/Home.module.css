@@ -29,6 +29,8 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+
+  overflow: hidden;
 }
 .main h2 {
   padding: 3rem 0 0 0;
@@ -53,9 +55,8 @@
 }
 
 .cards {
-  margin: 1rem 0 0 0;
-
-  width: 100%;
+  width: 100vw;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
+  justify-content: center;
 }
