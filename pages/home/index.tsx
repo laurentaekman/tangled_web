@@ -36,8 +36,6 @@ const Home: NextPage = () => {
     }
     if (objectsContext.objectIds.length > 0 && isGrabbingNewItems) {
       getRandomObjectIds();
-    }
-    if (isGrabbingNewItems) {
       setIsGrabbingNewItems(false);
     }
   }, [objectsContext, isGrabbingNewItems]);

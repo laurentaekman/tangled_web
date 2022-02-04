@@ -10,7 +10,7 @@
   --secondary-text-color: black;
   --outline-color: white;
   --action-color: #deff92;
-  --loader-color: #577454;
+  --loader-color: #71926d;
   /* --main-background-color: #fff8d9;
   --secondary-background-color: #eba83a;
   --card-color: #d5dbb3;
@@ -44,26 +44,3 @@ h1 {
 h2 {
   font-size: x-large;
 }
-
-/* h1 {
-  background: var(--card-color);
-  padding: 2rem;
-  width: 100%;
-  text-align: center;
-}
-h2 {
-  margin: 1rem;
-}
-
-* {
-  box-sizing: border-box;
-} */
-
-/*
-PALETTE: 
-dark yellow = EBA83A
-dark red = BB371A
-pale yellow = FFF8D9
-pale green = D5DBB3
-blue = 005A8D
-*/

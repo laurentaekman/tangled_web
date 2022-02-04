@@ -46,6 +46,8 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+
+  height: 95%;
 }
 
 .card:hover,
@@ -76,7 +78,7 @@
   border-radius: 25px;
 
   width: 30vh;
-  height: 8rem;
+  /* height: 8rem; */
 
   overflow: hidden;
 }
