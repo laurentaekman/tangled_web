@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import styles from "../../styles/Home.module.css";
 import ArtObjectCard from "../../components/ArtObjectCard";
@@ -20,6 +19,7 @@ const Home: NextPage = () => {
   const [startingObjectIds, setStartingObjectIds] =
     useState(initialObjectIdArray);
   const [startingObjects, setStartingObjects] = useState(initialObjectArray);
+  const [isGrabbingNewItems, setIsGrabbingNewItems] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const objectsContext = useContext(ObjectsContext);
 
@@ -34,10 +34,13 @@ const Home: NextPage = () => {
       }
       setStartingObjectIds(randomObjectIds);
     }
-    if (objectsContext.objectIds.length > 0) {
+    if (objectsContext.objectIds.length > 0 && isGrabbingNewItems) {
       getRandomObjectIds();
     }
-  }, [objectsContext]);
+    if (isGrabbingNewItems) {
+      setIsGrabbingNewItems(false);
+    }
+  }, [objectsContext, isGrabbingNewItems]);
 
   useEffect(() => {
     async function fetchArtObjects(objectIDs: number[]) {
@@ -64,12 +67,6 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Header />
         <h2>Get started by clicking one of the art pieces below.</h2>
-        {/* <div>
-          Or click{" "}
-          <Link href="/art-posts/436532">
-            <a>this page!</a>
-          </Link>
-        </div> */}
 
         {startingObjects.length > 0 && startingObjectIds.length && !isLoading && (
           <div className={styles.cards}>
@@ -79,6 +76,7 @@ const Home: NextPage = () => {
           </div>
         )}
         {isLoading && <div className={styles.loader}></div>}
+        <button onClick={() => setIsGrabbingNewItems(true)}>Refresh</button>
       </main>
     </div>
   );
