@@ -17,14 +17,13 @@ export const useFavorites = (): any[] => {
 
   useEffect(() => {
     const fetchFavorites = async () => {
-      const apiObjects: APIArtObject[] = await getArtObjects(favoriteIds);
-      const objects = apiObjects.map((apiObject) =>
-        convertArtObject(apiObject)
-      );
+      const objects = await getArtObjects(favoriteIds);
       setFavorites(objects);
     };
     if (favoriteIds.length > 0) {
       fetchFavorites();
+    } else if (notFirstRender.current) {
+      setFavorites([]);
     }
   }, [favoriteIds]);
 

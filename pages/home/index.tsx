@@ -28,8 +28,8 @@ const Home: NextPage = () => {
 
   const options = {
     root: null,
-    rootMargin: "200px",
-    threshold: 0,
+    rootMargin: "0px",
+    threshold: 0.5,
   };
 
   const handleNextPageCall = () => {

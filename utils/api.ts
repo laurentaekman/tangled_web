@@ -60,13 +60,15 @@ export const generateHref = async (
   return path + objectId;
 };
 
-export const getArtObjects = async (objectIDs: number[]): Promise<any[]> => {
+export const getArtObjects = async (
+  objectIDs: number[]
+): Promise<ArtObject[]> => {
   const objectPromises = objectIDs.map(async (objectID) => {
     const response = await fetch(
       `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
     );
-    const data = await response.json();
-    return data;
+    const data: APIArtObject = await response.json();
+    return convertArtObject(data);
   });
   const objects = await Promise.all(objectPromises);
   return objects;

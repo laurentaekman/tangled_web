@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import styles from "../styles/WelcomePage.module.css";
 import ObjectsContext from "../context/objects-context";
-import { getArtObjects } from "../utils/api";
+import { getArtObject, getArtObjects } from "../utils/api";
 import { useFavorites } from "../hooks/use-favorites";
 import { ArtObject } from "../utils/types";
 import { RightArrowIcon } from "../assets/RightArrowIcon";
@@ -15,19 +15,18 @@ const WelcomePage: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [favorites] = useFavorites();
   const objectsContext = useContext(ObjectsContext);
+  const objectIds: number[] = objectsContext.objectIds;
 
   useEffect(() => {
     let newObjects: ArtObject[] = [];
-    const objectIds: number[] = objectsContext.objectWithImagesIds;
-    if (favorites.length > 2) {
+    if (favorites.length >= 2) {
       newObjects = favorites
         .filter((favorite: ArtObject) => favorite.imageSource)
-        .splice(0, 2);
-      // console.log(newObjects);
+        .slice(0, 2);
     }
 
     const getObjects = async () => {
-      let objects;
+      let objects: ArtObject[] = [];
       let indexes: number[] = [];
       for (let i = 0; i < 2; i++) {
         let newIndex = Math.floor(Math.random() * (objectIds.length - 0 + 1));
@@ -38,16 +37,40 @@ const WelcomePage: NextPage = () => {
       }
       const newObjectIds = indexes.map((index) => objectIds[index]);
       objects = await getArtObjects(newObjectIds);
-      // console.log(objects);
       setArtObjects(objects);
     };
 
-    if (newObjects.length < 2 && objectIds.length > 0) {
+    if (newObjects.length < 2 && objectIds.length) {
       getObjects();
     } else {
       setArtObjects(newObjects);
     }
-  }, [favorites, objectsContext.objectWithImagesIds]);
+  }, [favorites, objectIds]);
+
+  useEffect(() => {
+    const replaceImagelessObject = async () => {
+      const indexToReplace = artObjects.findIndex(
+        (object) => !object.imageSource
+      );
+      let newObjectId =
+        objectIds[Math.floor(Math.random() * (objectIds.length - 0 + 1))];
+      let newObject = await getArtObject(newObjectId);
+      if (newObject) {
+        setArtObjects((prevArray) => {
+          let newArray = [...prevArray];
+          newArray[indexToReplace] = newObject!;
+          return newArray;
+        });
+      }
+    };
+    if (
+      objectIds.length > 0 &&
+      artObjects.length >= 2 &&
+      artObjects.some((object) => !object.imageSource)
+    ) {
+      replaceImagelessObject();
+    }
+  }, [artObjects, objectIds]);
 
   return (
     <div>
@@ -60,7 +83,7 @@ const WelcomePage: NextPage = () => {
         <div className={styles.images}>
           <div className={styles.primary_image_frame}>
             <div className={styles.primary_cropped_image}>
-              {artObjects[0] ? (
+              {artObjects[0]?.imageSource ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={artObjects[0].imageSource}
@@ -76,7 +99,7 @@ const WelcomePage: NextPage = () => {
           </div>
           <div className={styles.secondary_image_frame}>
             <div className={styles.secondary_cropped_image}>
-              {artObjects[1] ? (
+              {artObjects[1]?.imageSource ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={artObjects[1].imageSource}
