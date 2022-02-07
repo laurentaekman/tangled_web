@@ -6,7 +6,8 @@ import ArtDescription from "../../components/ArtDescription";
 import Frame from "../../components/Frame";
 import Header from "../../components/Header";
 import artPostStyles from "../../styles/art-post.module.css";
-import { APIArtObject, ArtObject, convertArtObject } from "../../utils/types";
+import { getArtObject } from "../../utils/api";
+import { ArtObject } from "../../utils/types";
 
 const ArtPost: NextPage = () => {
   const router = useRouter();
@@ -24,16 +25,13 @@ const ArtPost: NextPage = () => {
   };
 
   useEffect(() => {
-    async function getArtObject() {
+    async function fetchArtObject() {
       if (objectId && objectId !== "undefined") {
         setIsLoading(true);
         try {
-          const response = await fetch(
-            `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectId}`
-          );
-          const output = await response.json();
-          const artObject: APIArtObject = output;
-          setArtObject(convertArtObject(artObject));
+          const id = parseInt(objectId as string);
+          const artObject = await getArtObject(id);
+          setArtObject(artObject);
         } catch (error) {
           setError(error);
           console.log(error);
@@ -41,7 +39,7 @@ const ArtPost: NextPage = () => {
         setIsLoading(false);
       }
     }
-    getArtObject();
+    fetchArtObject();
   }, [objectId]);
 
   useEffect(() => {
@@ -71,20 +69,7 @@ const ArtPost: NextPage = () => {
         )}
         {artObject && !isLoading && !error && (
           <div className={artPostStyles.description_info}>
-            <ArtDescription
-              objectTitle={artObject.title}
-              artistName={artObject.artistName}
-              artistNationality={artObject.artistNationality}
-              artistBirthYear={artObject.artistBirthYear}
-              artistDeathYear={artObject.artistDeathYear}
-              objectBeginDate={artObject.objectBeginDate}
-              objectEndDate={artObject.objectEndDate}
-              medium={artObject.medium}
-              dimensions={artObject.dimensions}
-              department={artObject.department}
-              objectName={artObject.objectName}
-              objectId={artObject.id}
-            />
+            <ArtDescription artObject={artObject} />
           </div>
         )}
       </div>

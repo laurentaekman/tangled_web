@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function ArtObjectCard({ artObject }: Props) {
-  const id = artObject?.id;
+  const id = artObject.id;
   return (
     <div className={styles.card}>
       <Link href={`/art-posts/${id}`} passHref>

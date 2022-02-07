@@ -13,7 +13,11 @@ const Header = () => {
         </a>
       </Link>
       <div className={styles.header_text}>
-        <h1>Tangled Web (Art Edition)</h1>
+        <Link href="/">
+          <a>
+            <h1>Tangled Web (Art Edition)</h1>
+          </a>
+        </Link>
       </div>
       <Link href="/favorites">
         <a className={styles.link}>

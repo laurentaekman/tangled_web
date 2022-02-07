@@ -2,14 +2,10 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import ObjectsContext from "../context/objects-context";
 import { useEffect, useState } from "react";
-import { getArtObjectsWithImages } from "../utils/api";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const initialObjectIds: number[] = [];
-  const [objectIds, setObjectIds] = useState(initialObjectIds);
-  const [objectWithImagesIds, setObjectsWithImagesIds] =
-    useState(initialObjectIds);
-  const [departments, setDepartments] = useState(initialObjectIds);
+  const [objectIds, setObjectIds] = useState<number[]>([]);
+  const [departments, setDepartments] = useState<number[]>([]);
 
   useEffect(() => {
     async function getObjectIds() {
@@ -21,11 +17,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       setObjectIds(objectIds);
     }
-    async function getObjectsWithImagesIds() {
-      const response = await getArtObjectsWithImages();
-      const data = response.objectIDs;
-      setObjectsWithImagesIds(data);
-    }
     async function getDepartments() {
       const response = await fetch(
         "https://collectionapi.metmuseum.org/public/collection/v1/departments"
@@ -35,13 +26,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       setDepartments(departments);
     }
-    Promise.all([getObjectIds(), getObjectsWithImagesIds(), getDepartments()]);
+    Promise.all([getObjectIds(), getDepartments()]);
   }, []);
 
   return (
-    <ObjectsContext.Provider
-      value={{ objectIds, objectWithImagesIds, departments }}
-    >
+    <ObjectsContext.Provider value={{ objectIds, departments }}>
       <Component {...pageProps} />
     </ObjectsContext.Provider>
   );

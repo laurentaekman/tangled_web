@@ -9,37 +9,14 @@ import { HeartUnfilledIcon } from "../assets/HeartUnfilledIcon";
 import { HeartFilledIcon } from "../assets/HeartFilledIcon";
 
 interface Props {
-  objectTitle: string;
-  artistName: string;
-  artistNationality: string;
-  artistBirthYear: string;
-  artistDeathYear: string;
-  objectBeginDate: string;
-  objectEndDate: string;
-  medium: string;
-  dimensions: string;
-  department: string;
-  objectName: string;
-  objectId: number;
+  artObject: ArtObject;
 }
 
-export default function ArtDescription({
-  objectTitle,
-  artistName,
-  artistNationality,
-  artistBirthYear,
-  artistDeathYear,
-  objectBeginDate,
-  objectEndDate,
-  medium,
-  dimensions,
-  department,
-  objectName,
-  objectId,
-}: Props) {
+export default function ArtDescription({ artObject }: Props) {
   const departments = useContext(ObjectsContext).departments;
   const objectDepartment = departments.find(
-    (currentDepartment) => currentDepartment.displayName === department
+    (currentDepartment) =>
+      currentDepartment.displayName === artObject.department
   );
 
   const [departmentHref, setDepartmentHref] = useState<string>("");
@@ -50,7 +27,7 @@ export default function ArtDescription({
   const [favorites, addFavorite, removeFavorite] = useFavorites();
 
   const isFavorited = favorites.some(
-    (favorite: ArtObject) => objectId === favorite.id
+    (favorite: ArtObject) => artObject.id === favorite.id
   );
 
   const createArtistBio = (
@@ -88,34 +65,37 @@ export default function ArtDescription({
       id: "artist",
       label: "Artist:",
       artInfo: createArtistBio(
-        artistName,
-        artistNationality,
-        artistBirthYear,
-        artistDeathYear
+        artObject.artistName,
+        artObject.artistNationality,
+        artObject.artistBirthYear,
+        artObject.artistDeathYear
       ),
       linkHref: artistHref,
     },
     {
       id: "years-created",
       label: "Year(s) Created:",
-      artInfo: objectCreationDateRange(objectBeginDate, objectEndDate),
+      artInfo: objectCreationDateRange(
+        artObject.objectBeginDate,
+        artObject.objectEndDate
+      ),
       linkHref: dateHref,
     },
     {
       id: "medium",
       label: "Medium:",
-      artInfo: medium,
+      artInfo: artObject.medium,
       linkHref: mediumHref,
     },
     {
       id: "dimensions",
       label: "Dimensions:",
-      artInfo: dimensions,
+      artInfo: artObject.dimensions,
     },
     {
       id: "department",
       label: "Department:",
-      artInfo: department,
+      artInfo: artObject.department,
       linkHref: departmentHref,
     },
   ].filter((data) => {
@@ -128,18 +108,18 @@ export default function ArtDescription({
       const newDepartmentObject = await searchAndGetObject(
         SearchTypes.department,
         objectDepartment.departmentId,
-        objectName,
-        objectId.toString()
+        artObject.objectName,
+        artObject.id.toString()
       );
       if (newDepartmentObject) {
         setDepartmentHref(`/art-posts/${newDepartmentObject}`);
       }
       setIsLoading(false);
     }
-    if (objectDepartment && objectName) {
+    if (objectDepartment && artObject.objectName) {
       getDepartmentPath();
     }
-  }, [objectDepartment, objectName, objectId]);
+  }, [objectDepartment, artObject.objectName, artObject.id]);
 
   useEffect(() => {
     async function getArtistPath() {
@@ -147,49 +127,55 @@ export default function ArtDescription({
       const newArtistObject = await searchAndGetObject(
         SearchTypes.artist,
         "true",
-        artistName,
-        objectId.toString()
+        artObject.artistName,
+        artObject.id.toString()
       );
       if (newArtistObject) {
         setArtistHref(`/art-posts/${newArtistObject}`);
       }
       setIsLoading(false);
     }
-    if (artistName) {
+    if (artObject.artistName) {
       getArtistPath();
     }
-  }, [artistName, objectId]);
+  }, [artObject.artistName, artObject.id]);
 
   useEffect(() => {
     async function getDatePath() {
       setIsLoading(true);
       const newDateObject = await searchAndGetObject(
         SearchTypes.date,
-        `${objectBeginDate ?? ""} ${objectEndDate ?? ""}`.trim(),
-        objectName,
-        objectId.toString()
+        `${artObject.objectBeginDate ?? ""} ${
+          artObject.objectEndDate ?? ""
+        }`.trim(),
+        artObject.objectName,
+        artObject.id.toString()
       );
 
-      //Tighten up date ranges when making requests
       if (newDateObject) {
         setDateHref(`/art-posts/${newDateObject}`);
       }
       setIsLoading(false);
     }
-    if (objectBeginDate || objectEndDate) {
+    if (artObject.objectBeginDate || artObject.objectEndDate) {
       getDatePath();
     }
-  }, [objectBeginDate, objectEndDate, objectName, objectId]);
+  }, [
+    artObject.objectBeginDate,
+    artObject.objectEndDate,
+    artObject.objectName,
+    artObject.id,
+  ]);
 
   useEffect(() => {
     async function getMediumPath() {
       setIsLoading(true);
-      const searchTerm = medium.split(" ")[0].replace(/\W/g, "");
+      const searchTerm = artObject.medium.split(" ")[0].replace(/\W/g, "");
       const newMediumObject = await searchAndGetObject(
         SearchTypes.medium,
         searchTerm,
-        objectName,
-        objectId.toString()
+        artObject.objectName,
+        artObject.id.toString()
       );
 
       if (newMediumObject) {
@@ -197,26 +183,26 @@ export default function ArtDescription({
       }
       setIsLoading(false);
     }
-    if (medium) {
+    if (artObject.medium) {
       getMediumPath();
     }
-  }, [medium, objectName, objectId]);
+  }, [artObject.medium, artObject.objectName, artObject.id]);
 
   return (
     <div className={artPostStyles.description}>
       {!isFavorited && (
-        <button onClick={() => addFavorite(objectId)}>
+        <button onClick={() => addFavorite(artObject.id)}>
           <HeartUnfilledIcon />
           Favorite this post
         </button>
       )}
       {isFavorited && (
-        <button onClick={() => removeFavorite(objectId)}>
+        <button onClick={() => removeFavorite(artObject.id)}>
           <HeartFilledIcon />
           Unfavorite this post
         </button>
       )}
-      <h1>{objectTitle}</h1>
+      <h1>{artObject.title}</h1>
       {dataToRender.map((data) => {
         return (
           <div key={data.id}>
