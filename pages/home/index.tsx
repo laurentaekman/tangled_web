@@ -6,53 +6,70 @@ import ArtObjectCard from "../../components/ArtObjectCard";
 import ObjectsContext from "../../context/objects-context";
 import Header from "../../components/Header";
 import { getArtObjects } from "../../utils/api";
+import { ArtObject } from "../../utils/types";
+import { useInfiniteScroll } from "../../hooks/use-infinite-scroll";
 
 /*
 TODO:
-- Restrict options based on whether they have images or not
-- Create better layout for initial options
+- Make pagination loading less excessive (only load a FEW elements, rather than hundreds)
+- Make loader less erratic when it displays at bottom of page
 */
+
 const Home: NextPage = () => {
-  const initialObjectIdArray: number[] = [];
-  const initialObjectArray: any[] = [];
+  const [artObjectIds, setArtObjectIds] = useState<number[]>([]);
+  const [artObjects, setArtObjects] = useState<ArtObject[]>([]);
 
-  const [startingObjectIds, setStartingObjectIds] =
-    useState(initialObjectIdArray);
-  const [startingObjects, setStartingObjects] = useState(initialObjectArray);
-  const [isGrabbingNewItems, setIsGrabbingNewItems] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+
   const objectsContext = useContext(ObjectsContext);
+  const allAvailableObjectIds = objectsContext.objectIds;
+  const itemsPerPage = 3;
+
+  const options = {
+    root: null,
+    rootMargin: "200px",
+    threshold: 0,
+  };
+
+  const handleNextPageCall = () => {
+    const nextEndIndex = (currentPage + 1) * itemsPerPage;
+    setCurrentPage(currentPage + 1);
+
+    if (artObjects.length < nextEndIndex) {
+      const allObjectIds = allAvailableObjectIds.slice(0, nextEndIndex);
+      setArtObjectIds(allObjectIds);
+    }
+  };
+  const scrollRef = useInfiniteScroll(handleNextPageCall, options);
 
   useEffect(() => {
-    setIsLoading(true);
-    async function getRandomObjectIds() {
-      const data = objectsContext.objectIds;
-      const randomObjectIds: number[] = [];
-      for (let i = 0; i < 6; i++) {
-        let randomIndex = Math.floor(Math.random() * (data.length - 0 + 1));
-        randomObjectIds.push(data[randomIndex]);
-      }
-      setStartingObjectIds(randomObjectIds);
+    if (currentPage === 1 && allAvailableObjectIds.length > 0) {
+      setArtObjectIds((prevArray) =>
+        prevArray.concat(
+          allAvailableObjectIds.slice(0, currentPage * itemsPerPage)
+        )
+      );
     }
-    if (objectsContext.objectIds.length > 0 && isGrabbingNewItems) {
-      getRandomObjectIds();
-      setIsGrabbingNewItems(false);
-    }
-  }, [objectsContext, isGrabbingNewItems]);
+  }, [currentPage, allAvailableObjectIds]);
 
   useEffect(() => {
-    async function fetchArtObjects(objectIDs: number[]) {
+    const startIndex = currentPage * itemsPerPage - itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    const getNewArtObjects = async () => {
       setIsLoading(true);
-      const objects = await getArtObjects(objectIDs);
-      setStartingObjects(objects);
+      const newObjectIds = artObjectIds.slice(startIndex, endIndex);
+      const newObjects: ArtObject[] = await getArtObjects(newObjectIds);
+      setArtObjects((prevArray) => prevArray.concat(newObjects));
+
       setIsLoading(false);
+    };
+
+    if (artObjectIds.length > 0) {
+      getNewArtObjects();
     }
-    if (startingObjectIds.length > 0) {
-      fetchArtObjects(startingObjectIds);
-    } else {
-      setIsLoading(true);
-    }
-  }, [startingObjectIds]);
+  }, [artObjectIds, currentPage]);
 
   return (
     <div className={styles.container}>
@@ -66,16 +83,19 @@ const Home: NextPage = () => {
         <Header />
         <h2>Get started by clicking one of the art pieces below.</h2>
 
-        {startingObjects.length > 0 && startingObjectIds.length && !isLoading && (
+        {artObjects.length > 0 && artObjectIds.length && (
           <div className={styles.cards}>
-            {startingObjects.map((object) => {
-              return <ArtObjectCard artObject={object} key={object.objectID} />;
-            })}
+            {artObjects.length > 0 &&
+              artObjects.map((object) => (
+                <ArtObjectCard artObject={object} key={object.id} />
+              ))}
           </div>
         )}
         {isLoading && <div className={styles.loader}></div>}
-        <button onClick={() => setIsGrabbingNewItems(true)}>Refresh</button>
       </main>
+      {artObjects.length < allAvailableObjectIds.length && (
+        <div ref={scrollRef} className={styles.loader}></div>
+      )}
     </div>
   );
 };

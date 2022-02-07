@@ -23,7 +23,7 @@ const WelcomePage: NextPage = () => {
       newObjects = favorites
         .filter((favorite: ArtObject) => favorite.imageSource)
         .splice(0, 2);
-      console.log(newObjects);
+      // console.log(newObjects);
     }
 
     const getObjects = async () => {
@@ -38,7 +38,7 @@ const WelcomePage: NextPage = () => {
       }
       const newObjectIds = indexes.map((index) => objectIds[index]);
       objects = await getArtObjects(newObjectIds);
-      console.log(objects);
+      // console.log(objects);
       setArtObjects(objects);
     };
 
