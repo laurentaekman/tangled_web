@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import ArtDescription from "../../components/ArtDescription";
@@ -7,7 +8,7 @@ import Header from "../../components/Header";
 import artPostStyles from "../../styles/art-post.module.css";
 import { APIArtObject, ArtObject, convertArtObject } from "../../utils/types";
 
-export default function ArtPost() {
+const ArtPost: NextPage = () => {
   const router = useRouter();
   const objectId = router.query.objectId;
   const [artObject, setArtObject] = useState<ArtObject>();
@@ -91,7 +92,9 @@ export default function ArtPost() {
       {error && <div>There was an error while retrieving data.</div>}
     </div>
   );
-}
+};
+
+export default ArtPost;
 
 /*
 export const getStaticProps = async (context) => {

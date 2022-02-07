@@ -6,7 +6,7 @@ import styles from "../styles/Header.module.css";
 const Header = () => {
   return (
     <div className={styles.header}>
-      <Link href="/">
+      <Link href="/home">
         <a className={styles.link}>
           <HomeIcon />
           Home
