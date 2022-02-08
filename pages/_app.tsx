@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import ObjectsContext from "../context/objects-context";
 import { useEffect, useState } from "react";
+import { getAllDepartments, getAllObjectIds } from "../utils/api";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [objectIds, setObjectIds] = useState<number[]>([]);
@@ -9,21 +10,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     async function getObjectIds() {
-      const response = await fetch(
-        "https://collectionapi.metmuseum.org/public/collection/v1/objects"
-      );
-      const data = await response.json();
-      const objectIds: number[] = data.objectIDs;
-
+      const objectIds = await getAllObjectIds();
       setObjectIds(objectIds);
     }
     async function getDepartments() {
-      const response = await fetch(
-        "https://collectionapi.metmuseum.org/public/collection/v1/departments"
-      );
-      const data = await response.json();
-      const departments: any[] = data.departments;
-
+      const departments = await getAllDepartments();
       setDepartments(departments);
     }
     Promise.all([getObjectIds(), getDepartments()]);

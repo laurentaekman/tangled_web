@@ -8,6 +8,7 @@ import Header from "../../components/Header";
 import { getArtObjects, getObjectsBySearch } from "../../utils/api";
 import { ArtObject } from "../../utils/types";
 import { useInfiniteScroll } from "../../hooks/use-infinite-scroll";
+import { SearchBar } from "../../components/SearchBar";
 
 /*
 TODO:
@@ -18,7 +19,6 @@ TODO:
 const Home: NextPage = () => {
   const [artObjectIds, setArtObjectIds] = useState<number[]>([]);
   const [artObjects, setArtObjects] = useState<ArtObject[]>([]);
-  const searchRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [availableIds, setAvailableIds] = useState<number[]>([]);
 
@@ -35,13 +35,8 @@ const Home: NextPage = () => {
     threshold: 0,
   };
 
-  const handleSearch = () => {
-    const searchValue = searchRef.current.value ?? "";
-    setSearchTerm(searchValue);
-  };
-
   const handleNextPageCall = () => {
-    console.log("next page!");
+    // console.log("next page!");
     const nextEndIndex = (currentPage + 1) * itemsPerPage;
     setCurrentPage((prevPage) => prevPage + 1);
 
@@ -119,14 +114,7 @@ const Home: NextPage = () => {
         <h2>Get started by clicking one of the art pieces below.</h2>
         <div className={styles.search}>
           <div>Or search for something specific:</div>
-          <div>
-            <input
-              type="text"
-              placeholder="Search for an item..."
-              ref={searchRef}
-            ></input>
-            <button onClick={handleSearch}>Search</button>
-          </div>
+          <SearchBar setSearchTerm={setSearchTerm} />
         </div>
 
         {artObjects.length > 0 && artObjectIds.length && (
@@ -139,7 +127,7 @@ const Home: NextPage = () => {
         )}
         {isLoading && <div className={styles.loader}></div>}
       </main>
-      {artObjects.length < availableIds.length && <div ref={scrollRef}></div>}
+      <div ref={scrollRef}></div>
     </div>
   );
 };

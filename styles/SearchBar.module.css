@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+
+  width: 50vw;
+
+  /* color: var(--primary-text-color); */
+  fill: var(--primary-text-color);
+}
+
+.container svg {
+  height: 1rem;
+  width: 1rem;
+}
+
+.search_elements {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--outline-color);
+  border-radius: 5px;
+  background-color: var(--card-color);
+}
+.search_elements span {
+  margin: 0 0 0 0.5rem;
+}
+.search_elements button {
+  background-color: transparent;
+  border: transparent;
+  width: 3rem;
+  height: 100%;
+  /* border: 1px solid var(--outline-color); */
+}
+.search_elements button:hover {
+  cursor: pointer;
+}
+
+.search {
+  font-size: 1rem;
+  color: var(--primary-text-color);
+  padding: 0.5rem;
+  width: 30vw;
+  background-color: transparent;
+  border: transparent;
+  /* fill: var(--primary-text-color);
+  background-color: transparent; */
+}
+.search::placeholder {
+  color: var(--action-color);
+}

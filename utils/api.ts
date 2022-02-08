@@ -92,3 +92,26 @@ export const getObjectsBySearch = async (searchTerm: string) => {
   const output = await response.json();
   return output.objectIDs;
 };
+
+export const getAllObjectIds = async () => {
+  const response = await fetch(
+    "https://collectionapi.metmuseum.org/public/collection/v1/objects",
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    }
+  );
+  const data = await response.json();
+  const objectIds: number[] = data.objectIDs;
+  return objectIds;
+};
+
+export const getAllDepartments = async () => {
+  const response = await fetch(
+    "https://collectionapi.metmuseum.org/public/collection/v1/departments"
+  );
+  const data = await response.json();
+  const departments: number[] = data.departments;
+  return departments;
+};
