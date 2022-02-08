@@ -1,6 +1,6 @@
 import artPostStyles from "../styles/art-post.module.css";
 import Link from "next/link";
-import { SearchTypes, searchAndGetObject } from "../utils/api";
+import { SearchTypes, findRelatedObject } from "../utils/api";
 import { useContext, useEffect, useState } from "react";
 import ObjectsContext from "../context/objects-context";
 import { useFavorites } from "../hooks/use-favorites";
@@ -105,11 +105,11 @@ export default function ArtDescription({ artObject }: Props) {
   useEffect(() => {
     async function getDepartmentPath() {
       setIsLoading(true);
-      const newDepartmentObject = await searchAndGetObject(
+      const newDepartmentObject = await findRelatedObject(
         SearchTypes.department,
         objectDepartment.departmentId,
         artObject.objectName,
-        artObject.id.toString()
+        artObject.id
       );
       if (newDepartmentObject) {
         setDepartmentHref(`/art-posts/${newDepartmentObject}`);
@@ -124,11 +124,11 @@ export default function ArtDescription({ artObject }: Props) {
   useEffect(() => {
     async function getArtistPath() {
       setIsLoading(true);
-      const newArtistObject = await searchAndGetObject(
+      const newArtistObject = await findRelatedObject(
         SearchTypes.artist,
         "true",
         artObject.artistName,
-        artObject.id.toString()
+        artObject.id
       );
       if (newArtistObject) {
         setArtistHref(`/art-posts/${newArtistObject}`);
@@ -143,13 +143,13 @@ export default function ArtDescription({ artObject }: Props) {
   useEffect(() => {
     async function getDatePath() {
       setIsLoading(true);
-      const newDateObject = await searchAndGetObject(
+      const newDateObject = await findRelatedObject(
         SearchTypes.date,
         `${artObject.objectBeginDate ?? ""} ${
           artObject.objectEndDate ?? ""
         }`.trim(),
         artObject.objectName,
-        artObject.id.toString()
+        artObject.id
       );
 
       if (newDateObject) {
@@ -171,11 +171,11 @@ export default function ArtDescription({ artObject }: Props) {
     async function getMediumPath() {
       setIsLoading(true);
       const searchTerm = artObject.medium.split(" ")[0].replace(/\W/g, "");
-      const newMediumObject = await searchAndGetObject(
+      const newMediumObject = await findRelatedObject(
         SearchTypes.medium,
         searchTerm,
         artObject.objectName,
-        artObject.id.toString()
+        artObject.id
       );
 
       if (newMediumObject) {

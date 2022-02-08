@@ -7,11 +7,11 @@ export enum SearchTypes {
   date = "dateBegin",
 }
 
-export const searchAndGetObject = async (
+export const findRelatedObject = async (
   searchType: SearchTypes,
   searchTerm: string,
   basicQuery: string,
-  currentId: string
+  currentId: number
 ) => {
   try {
     let requestUrl = `https://collectionapi.metmuseum.org/public/collection/v1/search`;
@@ -47,10 +47,10 @@ export const generateHref = async (
   searchType: SearchTypes,
   searchTerm: string,
   basicQuery: string,
-  currentId: string
+  currentId: number
 ) => {
   let path = `/art-posts/`;
-  let objectId = await searchAndGetObject(
+  let objectId = await findRelatedObject(
     searchType,
     searchTerm,
     basicQuery,
@@ -83,4 +83,12 @@ export const getArtObject = async (objectId: number) => {
     const artObject: ArtObject = convertArtObject(output);
     return artObject ?? {};
   }
+};
+
+export const getObjectsBySearch = async (searchTerm: string) => {
+  const response = await fetch(
+    `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${searchTerm}`
+  );
+  const output = await response.json();
+  return output.objectIDs;
 };

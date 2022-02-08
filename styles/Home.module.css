@@ -48,6 +48,12 @@
   font-size: 1.5rem;
 }
 
+.search {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+}
+
 .cards {
   width: 100vw;
   display: flex;

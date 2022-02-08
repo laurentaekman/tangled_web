@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styles from "../../styles/Home.module.css";
 import ArtObjectCard from "../../components/ArtObjectCard";
 import ObjectsContext from "../../context/objects-context";
 import Header from "../../components/Header";
-import { getArtObjects } from "../../utils/api";
+import { getArtObjects, getObjectsBySearch } from "../../utils/api";
 import { ArtObject } from "../../utils/types";
 import { useInfiniteScroll } from "../../hooks/use-infinite-scroll";
 
@@ -18,40 +18,71 @@ TODO:
 const Home: NextPage = () => {
   const [artObjectIds, setArtObjectIds] = useState<number[]>([]);
   const [artObjects, setArtObjects] = useState<ArtObject[]>([]);
+  const searchRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [availableIds, setAvailableIds] = useState<number[]>([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   const objectsContext = useContext(ObjectsContext);
-  const allAvailableObjectIds = objectsContext.objectIds;
+  const contextObjectIds = objectsContext.objectIds;
   const itemsPerPage = 3;
 
   const options = {
     root: null,
-    rootMargin: "0px",
-    threshold: 0.5,
+    rootMargin: "200px",
+    threshold: 0,
+  };
+
+  const handleSearch = () => {
+    const searchValue = searchRef.current.value ?? "";
+    setSearchTerm(searchValue);
   };
 
   const handleNextPageCall = () => {
+    console.log("next page!");
     const nextEndIndex = (currentPage + 1) * itemsPerPage;
-    setCurrentPage(currentPage + 1);
+    setCurrentPage((prevPage) => prevPage + 1);
 
     if (artObjects.length < nextEndIndex) {
-      const allObjectIds = allAvailableObjectIds.slice(0, nextEndIndex);
+      const allObjectIds = availableIds.slice(0, nextEndIndex);
       setArtObjectIds(allObjectIds);
     }
   };
+
   const scrollRef = useInfiniteScroll(handleNextPageCall, options);
 
+  //Change in available objects leads to automatic reset of items shown & page
   useEffect(() => {
-    if (currentPage === 1 && allAvailableObjectIds.length > 0) {
-      setArtObjectIds((prevArray) =>
-        prevArray.concat(
-          allAvailableObjectIds.slice(0, currentPage * itemsPerPage)
-        )
-      );
+    const startingObjectIds = availableIds.slice(0, 1 * itemsPerPage);
+    const getStartingObjects = async () => {
+      const newObjects = await getArtObjects(startingObjectIds);
+      setArtObjects(newObjects);
+    };
+
+    if (availableIds.length > 0) {
+      setIsLoading(true);
+      setCurrentPage(1);
+      setArtObjectIds(availableIds.slice(0, 1 * itemsPerPage));
+      getStartingObjects();
+      setIsLoading(false);
     }
-  }, [currentPage, allAvailableObjectIds]);
+  }, [availableIds]);
+
+  //Change in search term determines what Ids are available
+  useEffect(() => {
+    const getSearchedAvailableIds = async () => {
+      console.log("grabbing new Ids based off term: ", searchTerm);
+      const newIds = await getObjectsBySearch(searchTerm);
+      setAvailableIds(newIds);
+    };
+    if (searchTerm) {
+      getSearchedAvailableIds();
+    } else {
+      setAvailableIds(contextObjectIds);
+    }
+  }, [contextObjectIds, searchTerm]);
 
   useEffect(() => {
     const startIndex = currentPage * itemsPerPage - itemsPerPage;
@@ -59,17 +90,21 @@ const Home: NextPage = () => {
 
     const getNewArtObjects = async () => {
       setIsLoading(true);
-      const newObjectIds = artObjectIds.slice(startIndex, endIndex);
+      const newObjectIds = availableIds.slice(startIndex, endIndex);
       const newObjects: ArtObject[] = await getArtObjects(newObjectIds);
-      setArtObjects((prevArray) => prevArray.concat(newObjects));
+      setArtObjects((prevArray) => prevArray.concat(newObjects).sort());
 
       setIsLoading(false);
     };
 
-    if (artObjectIds.length > 0) {
+    if (
+      artObjectIds.length > 0 &&
+      endIndex > artObjectIds.length &&
+      endIndex < availableIds.length
+    ) {
       getNewArtObjects();
     }
-  }, [artObjectIds, currentPage]);
+  }, [artObjectIds, availableIds, currentPage]);
 
   return (
     <div className={styles.container}>
@@ -82,6 +117,17 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Header />
         <h2>Get started by clicking one of the art pieces below.</h2>
+        <div className={styles.search}>
+          <div>Or search for something specific:</div>
+          <div>
+            <input
+              type="text"
+              placeholder="Search for an item..."
+              ref={searchRef}
+            ></input>
+            <button onClick={handleSearch}>Search</button>
+          </div>
+        </div>
 
         {artObjects.length > 0 && artObjectIds.length && (
           <div className={styles.cards}>
@@ -93,9 +139,7 @@ const Home: NextPage = () => {
         )}
         {isLoading && <div className={styles.loader}></div>}
       </main>
-      {artObjects.length < allAvailableObjectIds.length && (
-        <div ref={scrollRef} className={styles.loader}></div>
-      )}
+      {artObjects.length < availableIds.length && <div ref={scrollRef}></div>}
     </div>
   );
 };
