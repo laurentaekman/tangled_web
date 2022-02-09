@@ -39,12 +39,13 @@ const Home: NextPage = () => {
   };
 
   const handleNextPageCall = () => {
-    // console.log("next page!");
     const nextEndIndex = (currentPage + 1) * itemsPerPage;
     setCurrentPage((prevPage) => prevPage + 1);
 
     if (artObjects.length < nextEndIndex) {
-      const allObjectIds = availableIds.slice(0, nextEndIndex);
+      const allObjectIds = availableIds
+        ? availableIds.slice(0, nextEndIndex)
+        : [];
       setArtObjectIds(allObjectIds);
     }
   };
@@ -53,18 +54,24 @@ const Home: NextPage = () => {
 
   //Change in available objects leads to automatic reset of items shown & page
   useEffect(() => {
-    const startingObjectIds = availableIds.slice(0, 1 * itemsPerPage);
+    const startingObjectIds = availableIds
+      ? availableIds.slice(0, 1 * itemsPerPage)
+      : [];
     const getStartingObjects = async () => {
       const newObjects = await getArtObjects(startingObjectIds);
       setArtObjects(newObjects);
     };
 
-    if (availableIds.length > 0) {
+    if (availableIds?.length > 0) {
       setIsLoading(true);
       setCurrentPage(1);
       setArtObjectIds(availableIds.slice(0, 1 * itemsPerPage));
       getStartingObjects();
       setIsLoading(false);
+    } else {
+      setCurrentPage(1);
+      setArtObjectIds([]);
+      setArtObjects([]);
     }
   }, [availableIds]);
 
@@ -135,6 +142,9 @@ const Home: NextPage = () => {
                   <ArtObjectCard artObject={object} key={object.id} />
                 ))}
             </div>
+          )}
+          {!isLoading && artObjects?.length <= 0 && (
+            <div className={styles.no_objects}>No objects found.</div>
           )}
           <button aria-label="return to top" onClick={() => setSendToTop(true)}>
             <UpArrowIcon />

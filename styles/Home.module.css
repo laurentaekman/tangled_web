@@ -55,16 +55,21 @@
   width: 95vw;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   fill: var(--primary-text-color);
 }
 
+.no_objects {
+  text-align: center;
+  padding: 2rem;
+}
+
 .home_content button {
   position: fixed;
-  bottom: 1rem;
-  right: 1rem;
+  bottom: 0.5rem;
+  right: 0.5rem;
   background-color: transparent;
   border: transparent;
   margin: 1rem;
