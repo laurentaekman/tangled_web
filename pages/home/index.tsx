@@ -9,6 +9,7 @@ import { getArtObjects, getObjectsBySearch } from "../../utils/api";
 import { ArtObject } from "../../utils/types";
 import { useInfiniteScroll } from "../../hooks/use-infinite-scroll";
 import { SearchBar } from "../../components/SearchBar";
+import { UpArrowIcon } from "../../assets/UpArrowIcon";
 
 /*
 TODO:
@@ -24,6 +25,8 @@ const Home: NextPage = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [sendToTop, setSendToTop] = useState(false);
 
   const objectsContext = useContext(ObjectsContext);
   const contextObjectIds = objectsContext.objectIds;
@@ -101,6 +104,13 @@ const Home: NextPage = () => {
     }
   }, [artObjectIds, availableIds, currentPage]);
 
+  useEffect(() => {
+    if (sendToTop) {
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
+      setSendToTop(false);
+    }
+  }, [sendToTop]);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -117,17 +127,21 @@ const Home: NextPage = () => {
           <div>Or search for something specific:</div>
           <SearchBar setSearchTerm={setSearchTerm} />
         </div>
-
-        {artObjects.length > 0 && artObjectIds.length && (
-          <div className={styles.cards}>
-            {artObjects.length > 0 &&
-              artObjects.map((object) => (
-                <ArtObjectCard artObject={object} key={object.id} />
-              ))}
-          </div>
-        )}
-        {isLoading && <div className={styles.loader}></div>}
+        <div className={styles.home_content}>
+          {artObjects.length > 0 && artObjectIds.length && (
+            <div className={styles.cards}>
+              {artObjects.length > 0 &&
+                artObjects.map((object) => (
+                  <ArtObjectCard artObject={object} key={object.id} />
+                ))}
+            </div>
+          )}
+          <button aria-label="return to top" onClick={() => setSendToTop(true)}>
+            <UpArrowIcon />
+          </button>
+        </div>
       </main>
+      {isLoading && <div className={styles.loader}></div>}
       <div ref={scrollRef}></div>
     </div>
   );

@@ -54,7 +54,6 @@
   color: var(--outline-color);
   fill: var(--outline-color);
   background: var(--primary-background-color);
-  /* background: transparent; */
 
   padding: 1rem;
   margin: 0 2rem;

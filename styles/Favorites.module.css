@@ -1,5 +1,4 @@
 .favorites {
-  /* padding: 5rem 0 2rem 0; */
   fill: var(--outline-color);
 
   display: flex;
@@ -15,7 +14,6 @@
   padding: 0 0 0.5rem 0;
 }
 .favorites h2 {
-  padding: 1rem 0 0 0;
   font-size: xx-large;
 }
 
@@ -92,7 +90,6 @@
   margin: 0 1rem;
 
   overflow: hidden;
-  /* clip-path: inset(15vh 0 0 0); */
 }
 
 .favorites_row_text {

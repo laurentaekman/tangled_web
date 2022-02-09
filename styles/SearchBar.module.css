@@ -6,7 +6,6 @@
 
   width: 50vw;
 
-  /* color: var(--primary-text-color); */
   fill: var(--primary-text-color);
 }
 
@@ -32,7 +31,6 @@
   width: 2rem;
   margin: 0.25rem;
   height: 100%;
-  /* border: 1px solid var(--outline-color); */
 }
 .search_elements button:hover {
   cursor: pointer;
@@ -45,8 +43,6 @@
   width: 30vw;
   background-color: transparent;
   border: transparent;
-  /* fill: var(--primary-text-color);
-  background-color: transparent; */
 }
 .search::placeholder {
   color: var(--primary-text-color);

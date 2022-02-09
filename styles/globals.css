@@ -11,23 +11,12 @@
   --outline-color: #cfe4ff;
   --action-color: #7eabff;
   --loader-color: #535252;
-
-  /* --primary-background-color: #d7cec7;
-  --secondary-background-color: #76323f;
-  --tertiary-background-color: #c09f80;
-  --card-color: #c09f80;
-  --hover-background-color: #e7dfc5;
-  --primary-text-color: #76323f;
-  --secondary-text-color: #e7dfc5;
-  --outline-color: #76323f;
-  --action-color: #e74302;
-  --loader-color: #e7dfc5; */
 }
 
 html,
 body {
   background: var(--primary-background-color);
-  color: var(--outline-color);
+  color: var(--primary-text-color);
 
   padding: 0;
   margin: 0;
