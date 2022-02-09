@@ -19,15 +19,15 @@
 
 .main {
   width: 100%;
-  padding: 4rem 0;
+  /* padding: 4rem 0; */
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .main h2 {
-  padding: 3rem 0 0 0;
+  padding: 1rem 0 0 0;
 }
 
 .title {

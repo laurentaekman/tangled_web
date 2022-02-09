@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { HeartUnfilledIcon } from "../assets/HeartUnfilledIcon";
 import { HomeIcon } from "../assets/HomeIcon";
+import { PaintBrushIcon } from "../assets/PaintBrushIcon";
+import { PaletteIcon } from "../assets/PaletteIcon";
 import styles from "../styles/Header.module.css";
 
 const Header = () => {
@@ -15,7 +17,11 @@ const Header = () => {
       <div className={styles.header_text}>
         <Link href="/">
           <a>
-            <h1>Tangled Web (Art Edition)</h1>
+            <h1>
+              Art Crawl
+              <PaletteIcon />
+              <PaintBrushIcon />
+            </h1>
           </a>
         </Link>
       </div>

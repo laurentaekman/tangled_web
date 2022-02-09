@@ -3,7 +3,7 @@
   color: var(--primary-text-color);
   border-bottom: 1px solid var(--outline-color);
 
-  position: absolute;
+  position: sticky;
   top: 0px;
 
   width: 100%;
@@ -23,7 +23,18 @@
 
   background: var(--hover-background-color);
   color: var(--primary-text-color);
+  fill: var(--primary-text-color);
   border-radius: 25px;
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.header svg {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 0 0 0.5rem;
 }
 
 .header_text {
