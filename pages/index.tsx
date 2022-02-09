@@ -8,11 +8,9 @@ import { getArtObject, getArtObjects } from "../utils/api";
 import { useFavorites } from "../hooks/use-favorites";
 import { ArtObject } from "../utils/types";
 import { RightArrowIcon } from "../assets/RightArrowIcon";
-import { QuestionIcon } from "../assets/QuestionIcon";
 
 const WelcomePage: NextPage = () => {
   const [artObjects, setArtObjects] = useState<ArtObject[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [favorites] = useFavorites();
   const objectsContext = useContext(ObjectsContext);
   const objectIds: number[] = objectsContext.objectIds;
@@ -92,9 +90,7 @@ const WelcomePage: NextPage = () => {
                   className={styles.primary_image}
                 />
               ) : (
-                <div className={styles.primary_image}>
-                  <QuestionIcon />
-                </div>
+                <div className={styles.primary_image}></div>
               )}
             </div>
           </div>
@@ -108,9 +104,7 @@ const WelcomePage: NextPage = () => {
                   className={styles.secondary_image}
                 />
               ) : (
-                <div className={styles.secondary_image}>
-                  <QuestionIcon />
-                </div>
+                <div className={styles.secondary_image}></div>
               )}
             </div>
           </div>
@@ -119,7 +113,7 @@ const WelcomePage: NextPage = () => {
         <div className={styles.main_text}>
           <h1>Tangled Web (Art Edition)</h1>
           <h2>
-            Explore a variety of pieces from the Metropolitan Museum of Art.
+            Explore a variety of pieces at the Metropolitan Museum of Art.
           </h2>
           <Link href="/home">
             <a>
