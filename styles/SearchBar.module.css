@@ -20,7 +20,8 @@
   align-items: center;
   border: 1px solid var(--outline-color);
   border-radius: 5px;
-  background-color: var(--card-color);
+  background-color: var(--loader-color);
+  width: 30vw;
 }
 .search_elements span {
   margin: 0 0 0 0.5rem;
@@ -28,7 +29,8 @@
 .search_elements button {
   background-color: transparent;
   border: transparent;
-  width: 3rem;
+  width: 2rem;
+  margin: 0.25rem;
   height: 100%;
   /* border: 1px solid var(--outline-color); */
 }
@@ -47,5 +49,5 @@
   background-color: transparent; */
 }
 .search::placeholder {
-  color: var(--action-color);
+  color: var(--primary-text-color);
 }

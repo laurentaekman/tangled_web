@@ -67,8 +67,8 @@
   position: relative;
   left: -8rem;
   top: 2rem;
-  background: var(--secondary-background-color);
-  border: 1px solid var(--primary-text-color);
+  background: var(--hover-background-color);
+  border: 1px solid var(--outline-color);
   box-shadow: 1rem 3rem var(--tertiary-background-color);
 
   display: flex;

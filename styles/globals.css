@@ -1,22 +1,27 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@400;500;600&display=swap");
 
 :root {
-  --primary-background-color: #4b6448;
-  --secondary-background-color: #968974;
-  --tertiary-background-color: #423f37;
-  --card-color: #6a8a66;
-  --hover-background-color: #577454;
-  --primary-text-color: white;
-  --secondary-text-color: black;
-  --outline-color: white;
-  --action-color: #deff92;
-  --loader-color: #71926d;
-  /* --main-background-color: #fff8d9;
-  --secondary-background-color: #eba83a;
-  --card-color: #d5dbb3;
-  --outline-color: #bb371a;
-  --action-color: #005a8d;
-  --loader-color: #f3e9ba; */
+  --primary-background-color: #333333;
+  --secondary-background-color: #e4002b;
+  --tertiary-background-color: #f2f2f2;
+  --card-color: #f2f2f2;
+  --hover-background-color: #860019;
+  --primary-text-color: #cfe4ff;
+  --secondary-text-color: #860019;
+  --outline-color: #cfe4ff;
+  --action-color: #7eabff;
+  --loader-color: #535252;
+
+  /* --primary-background-color: #d7cec7;
+  --secondary-background-color: #76323f;
+  --tertiary-background-color: #c09f80;
+  --card-color: #c09f80;
+  --hover-background-color: #e7dfc5;
+  --primary-text-color: #76323f;
+  --secondary-text-color: #e7dfc5;
+  --outline-color: #76323f;
+  --action-color: #e74302;
+  --loader-color: #e7dfc5; */
 }
 
 html,
@@ -29,7 +34,8 @@ body {
 
   width: 100vw;
   height: 100vh;
-  font-family: "Montserrat";
+  font-family: "Oxygen";
+  /* font-family: "Nunito"; */
   /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
 }

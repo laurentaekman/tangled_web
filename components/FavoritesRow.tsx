@@ -21,7 +21,7 @@ export const FavoritesRow = ({ item, removeFavorite }: Props) => {
       <div className={styles.favorites_row}>
         <div className={styles.favorites_row_text}>
           <p className={styles.favorites_object_name}>
-            {truncateString(item.title, 7)}
+            {truncateString(item.title, 5)}
           </p>
           <p>{item.artistName}</p>
         </div>
@@ -33,6 +33,7 @@ export const FavoritesRow = ({ item, removeFavorite }: Props) => {
         )}
         <div className={styles.favorites_action_items}>
           <button
+            aria-label="remove favorite"
             onClick={() => {
               setIsFavorited(false);
               removeFavorite(item.id);
@@ -42,7 +43,7 @@ export const FavoritesRow = ({ item, removeFavorite }: Props) => {
             {!isFavorited && <HeartUnfilledIcon />}
           </button>
           <Link href={`/art-posts/${item.id}`}>
-            <a>
+            <a aria-label="go to favorite's page">
               <RightArrowIcon />
             </a>
           </Link>

@@ -21,7 +21,7 @@
   align-self: center;
   justify-self: center;
 
-  background: var(--tertiary-background-color);
+  background: var(--hover-background-color);
   color: var(--primary-text-color);
   border-radius: 25px;
 }
@@ -42,7 +42,7 @@
   border: 1px solid var(--outline-color);
   color: var(--outline-color);
   fill: var(--outline-color);
-  background: var(--tertiary-background-color);
+  background: var(--primary-background-color);
   /* background: transparent; */
 
   padding: 1rem;
