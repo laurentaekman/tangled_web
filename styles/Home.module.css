@@ -19,6 +19,7 @@
 
 .main {
   width: 100%;
+  min-width: 63rem;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -59,11 +60,6 @@
   align-items: center;
 
   fill: var(--primary-text-color);
-}
-
-.no_objects {
-  text-align: center;
-  padding: 2rem;
 }
 
 .home_content button {

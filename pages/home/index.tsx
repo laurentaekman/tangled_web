@@ -10,6 +10,7 @@ import { ArtObject } from "../../utils/types";
 import { useInfiniteScroll } from "../../hooks/use-infinite-scroll";
 import { SearchBar } from "../../components/SearchBar";
 import { UpArrowIcon } from "../../assets/UpArrowIcon";
+import { EmptyState } from "../../components/EmptyState";
 
 /*
 TODO:
@@ -144,7 +145,7 @@ const Home: NextPage = () => {
             </div>
           )}
           {!isLoading && artObjects?.length <= 0 && (
-            <div className={styles.no_objects}>No objects found.</div>
+            <EmptyState message="No objects found." />
           )}
           <button aria-label="return to top" onClick={() => setSendToTop(true)}>
             <UpArrowIcon />

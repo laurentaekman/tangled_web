@@ -3,6 +3,7 @@
   align-items: flex-start;
   justify-content: center;
 
+  min-width: 21rem;
   width: 24vw;
   height: 30vh;
 
@@ -30,7 +31,7 @@
   justify-content: center;
 
   max-height: 30vh;
-  margin: 0 0 1rem 0;
+  margin: 1rem 0 1rem 0;
 }
 .card_no_image svg {
   height: 5rem;

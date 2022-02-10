@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import { useFavorites } from "../../hooks/use-favorites";
 import { ArtObject } from "../../utils/types";
 import { NextPage } from "next";
+import { EmptyState } from "../../components/EmptyState";
 
 const Favorites: NextPage = () => {
   const [favorites, addFavorite, removeFavorite] = useFavorites();
@@ -34,9 +35,9 @@ const Favorites: NextPage = () => {
               ))}
           </main>
         )}
-        {favorites.length <= 0 && (
+        {!favorites.length && (
           <main>
-            <div>No favorites yet!</div>
+            <EmptyState message="No favorites yet!" />
           </main>
         )}
       </div>
