@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 import ArtDescription from "../../components/ArtDescription";
 import Frame from "../../components/Frame";
 import Header from "../../components/Header";
+import { Notification } from "../../components/Notification";
 import artPostStyles from "../../styles/art-post.module.css";
 import { getArtObject } from "../../utils/api";
 import { ArtObject } from "../../utils/types";
+import { EmptyState } from "../../components/EmptyState";
 
 const ArtPost: NextPage = () => {
   const router = useRouter();
@@ -34,8 +36,7 @@ const ArtPost: NextPage = () => {
           const artObject = await getArtObject(id);
           setArtObject(artObject);
         } catch (error) {
-          setError(error);
-          console.log(error);
+          setError((error as Error).message ?? "Couldn't fetch art object.");
         }
         setIsLoading(false);
       }
@@ -63,6 +64,13 @@ const ArtPost: NextPage = () => {
         {/* <html lang="en"></html> */}
       </Head>
       <Header />
+      {error && (
+        <Notification
+          isError={true}
+          message={error}
+          onClose={() => setError(null)}
+        />
+      )}
       <div className={artPostStyles.post_items}>
         {artObject?.imageSource && (
           <Frame dimensions={frameDimensions}>
@@ -79,9 +87,14 @@ const ArtPost: NextPage = () => {
             <ArtDescription artObject={artObject} />
           </div>
         )}
+        {!artObject && !isLoading && (
+          <EmptyState
+            message="No art object found."
+            secondaryMessage="Please try refreshing the page, or return to Home."
+          />
+        )}
       </div>
       {isLoading && <div className={artPostStyles.loader}></div>}
-      {error && <div>There was an error while retrieving data.</div>}
     </div>
   );
 };

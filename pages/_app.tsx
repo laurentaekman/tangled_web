@@ -10,12 +10,20 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     async function getObjectIds() {
-      const objectIds = await getAllObjectIds();
-      setObjectIds(objectIds);
+      try {
+        const objectIds = await getAllObjectIds();
+        setObjectIds(objectIds);
+      } catch (error) {
+        console.log(error);
+      }
     }
     async function getDepartments() {
-      const departments = await getAllDepartments();
-      setDepartments(departments);
+      try {
+        const departments = await getAllDepartments();
+        setDepartments(departments);
+      } catch (error) {
+        console.log(error);
+      }
     }
     Promise.all([getObjectIds(), getDepartments()]);
   }, []);

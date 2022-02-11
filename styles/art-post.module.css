@@ -1,10 +1,11 @@
 .art_post {
   overflow: hidden;
-  min-width: 89rem;
+  fill: var(--outline-color);
 }
 
 .post_items {
   width: 100%;
+  /* min-width: 89rem; */
   display: flex;
   flex-flow: row nowrap;
   align-items: center;

@@ -33,14 +33,14 @@ export const findRelatedObject = async (
     const data = await response.json();
     const objectId = data.objectIDs.find((object: any) => object != currentId);
     if (!objectId) {
-      throw new Error();
+      console.log("Couldn't fetch a related object!");
+      // throw new Error();
     }
     return objectId;
   } catch (error) {
-    console.log("Couldn't fetch a new object!");
+    console.log(error);
+    //throw new Error("Couldn't fetch a related object!");
   }
-
-  return null;
 };
 
 export const generateHref = async (
@@ -64,11 +64,15 @@ export const getArtObjects = async (
   objectIDs: number[]
 ): Promise<ArtObject[]> => {
   const objectPromises = objectIDs.map(async (objectID) => {
-    const response = await fetch(
-      `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
-    );
-    const data: APIArtObject = await response.json();
-    return convertArtObject(data);
+    try {
+      const response = await fetch(
+        `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
+      );
+      const data: APIArtObject = await response.json();
+      return convertArtObject(data);
+    } catch (error) {
+      throw new Error("Couldn't fetch art objects!");
+    }
   });
   const objects = await Promise.all(objectPromises);
   return objects;
@@ -76,42 +80,58 @@ export const getArtObjects = async (
 
 export const getArtObject = async (objectId: number) => {
   if (objectId) {
-    const response = await fetch(
-      `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectId}`
-    );
-    const output: APIArtObject = await response.json();
-    const artObject: ArtObject = convertArtObject(output);
-    return artObject ?? {};
+    try {
+      const response = await fetch(
+        `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectId}`
+      );
+      const output: APIArtObject = await response.json();
+      const artObject: ArtObject = convertArtObject(output);
+      return artObject ?? {};
+    } catch (error) {
+      throw new Error("Couldn't fetch art object!");
+    }
   }
 };
 
 export const getObjectsBySearch = async (searchTerm: string) => {
-  const response = await fetch(
-    `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${searchTerm}`
-  );
-  const output = await response.json();
-  return output.objectIDs;
+  try {
+    const response = await fetch(
+      `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${searchTerm}`
+    );
+    const output = await response.json();
+    return output.objectIDs;
+  } catch (error) {
+    throw new Error("Couldn't fetch art objects!");
+  }
 };
 
 export const getAllObjectIds = async () => {
-  const response = await fetch(
-    "https://collectionapi.metmuseum.org/public/collection/v1/objects",
-    {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    }
-  );
-  const data = await response.json();
-  const objectIds: number[] = data.objectIDs;
-  return objectIds;
+  try {
+    const response = await fetch(
+      "https://collectionapi.metmuseum.org/public/collection/v1/objects",
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+    const data = await response.json();
+    const objectIds: number[] = data.objectIDs;
+    return objectIds;
+  } catch (error) {
+    throw new Error("Couldn't fetch art objects!");
+  }
 };
 
 export const getAllDepartments = async () => {
-  const response = await fetch(
-    "https://collectionapi.metmuseum.org/public/collection/v1/departments"
-  );
-  const data = await response.json();
-  const departments: number[] = data.departments;
-  return departments;
+  try {
+    const response = await fetch(
+      "https://collectionapi.metmuseum.org/public/collection/v1/departments"
+    );
+    const data = await response.json();
+    const departments: number[] = data.departments;
+    return departments;
+  } catch (error) {
+    throw new Error("Couldn't fetch art objects!");
+  }
 };

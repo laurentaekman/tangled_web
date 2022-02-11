@@ -1,0 +1,53 @@
+.notification {
+  position: fixed;
+  top: 8rem;
+  right: 1rem;
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-around;
+
+  /* height: 2rem; */
+  width: 30%;
+  padding: 1rem;
+
+  font-size: larger;
+  font-weight: bold;
+
+  border: 1px solid var(--primary-text-color);
+  border-radius: 5px;
+
+  background-color: var(--success-color);
+  color: var(--primary-text-color);
+  fill: var(--primary-text-color);
+
+  transition: transform 0.6s ease-in-out;
+  animation: toast-in-right 0.7s;
+}
+
+.notification button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: transparent;
+
+  cursor: pointer;
+}
+.notification svg {
+  height: 2rem;
+  width: 2rem;
+}
+
+.notification_error {
+  background-color: var(--secondary-background-color);
+}
+
+@keyframes toast-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

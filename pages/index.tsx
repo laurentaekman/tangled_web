@@ -34,8 +34,12 @@ const WelcomePage: NextPage = () => {
         indexes.push(newIndex);
       }
       const newObjectIds = indexes.map((index) => objectIds[index]);
-      objects = await getArtObjects(newObjectIds);
-      setArtObjects(objects);
+      try {
+        objects = await getArtObjects(newObjectIds);
+        setArtObjects(objects);
+      } catch (error) {
+        console.log((error as Error).message ?? "Couldn't fetch art objects.");
+      }
     };
 
     if (newObjects.length < 2 && objectIds.length) {
@@ -52,13 +56,17 @@ const WelcomePage: NextPage = () => {
       );
       let newObjectId =
         objectIds[Math.floor(Math.random() * (objectIds.length - 0 + 1))];
-      let newObject = await getArtObject(newObjectId);
-      if (newObject) {
-        setArtObjects((prevArray) => {
-          let newArray = [...prevArray];
-          newArray[indexToReplace] = newObject!;
-          return newArray;
-        });
+      try {
+        let newObject = await getArtObject(newObjectId);
+        if (newObject) {
+          setArtObjects((prevArray) => {
+            let newArray = [...prevArray];
+            newArray[indexToReplace] = newObject!;
+            return newArray;
+          });
+        }
+      } catch (error) {
+        console.log((error as Error).message ?? "Couldn't fetch art objects.");
       }
     };
     if (

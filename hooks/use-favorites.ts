@@ -9,6 +9,7 @@ import { getArtObjects } from "../utils/api";
 export const useFavorites = (): any[] => {
   const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
   const [favorites, setFavorites] = useState<ArtObject[]>([]);
+  const [error, setError] = useState<any>();
   let notFirstRender = useRef(false);
 
   useEffect(() => {
@@ -17,8 +18,14 @@ export const useFavorites = (): any[] => {
 
   useEffect(() => {
     const fetchFavorites = async () => {
-      const objects = await getArtObjects(favoriteIds);
-      setFavorites(objects);
+      try {
+        const objects = await getArtObjects(favoriteIds);
+        setFavorites(objects);
+      } catch (error) {
+        setError(
+          (error as Error).message ?? "Couldn't fetch favorite objects."
+        );
+      }
     };
     if (favoriteIds.length > 0) {
       fetchFavorites();
@@ -45,5 +52,9 @@ export const useFavorites = (): any[] => {
     );
   };
 
-  return [favorites, addFavorite, removeFavorite];
+  const dismissError = () => {
+    setError(null);
+  };
+
+  return [favorites, addFavorite, removeFavorite, error, dismissError];
 };

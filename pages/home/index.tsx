@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Notification } from "../../components/Notification";
 import styles from "../../styles/Home.module.css";
 import ArtObjectCard from "../../components/ArtObjectCard";
 import ObjectsContext from "../../context/objects-context";
@@ -23,6 +24,7 @@ const Home: NextPage = () => {
   const [artObjects, setArtObjects] = useState<ArtObject[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [availableIds, setAvailableIds] = useState<number[]>([]);
+  const [error, setError] = useState<any>();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +49,7 @@ const Home: NextPage = () => {
       const allObjectIds = availableIds
         ? availableIds.slice(0, nextEndIndex)
         : [];
+      setIsLoading(true);
       setArtObjectIds(allObjectIds);
     }
   };
@@ -73,15 +76,19 @@ const Home: NextPage = () => {
       setCurrentPage(1);
       setArtObjectIds([]);
       setArtObjects([]);
+      setIsLoading(false);
     }
   }, [availableIds]);
 
   //Change in search term determines what Ids are available
   useEffect(() => {
     const getSearchedAvailableIds = async () => {
-      // console.log("grabbing new Ids based off term: ", searchTerm);
-      const newIds = await getObjectsBySearch(searchTerm);
-      setAvailableIds(newIds);
+      try {
+        const newIds = await getObjectsBySearch(searchTerm);
+        setAvailableIds(newIds);
+      } catch (error) {
+        setError((error as Error).message ?? "Couldn't fetch art objects.");
+      }
     };
     if (searchTerm) {
       getSearchedAvailableIds();
@@ -97,8 +104,12 @@ const Home: NextPage = () => {
     const getNewArtObjects = async () => {
       setIsLoading(true);
       const newObjectIds = availableIds.slice(startIndex, endIndex);
-      const newObjects: ArtObject[] = await getArtObjects(newObjectIds);
-      setArtObjects((prevArray) => prevArray.concat(newObjects).sort());
+      try {
+        const newObjects: ArtObject[] = await getArtObjects(newObjectIds);
+        setArtObjects((prevArray) => prevArray.concat(newObjects).sort());
+      } catch (error) {
+        setError((error as Error).message ?? "Couldn't fetch art objects.");
+      }
 
       setIsLoading(false);
     };
@@ -130,6 +141,13 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <Header />
+        {error && (
+          <Notification
+            isError={true}
+            message={error}
+            onClose={() => setError(null)}
+          />
+        )}
         <h2>Get started by clicking one of the art pieces below.</h2>
         <div className={styles.search}>
           <div>Or search for something specific:</div>

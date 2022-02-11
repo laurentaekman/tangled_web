@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { FavoritesRow } from "../../components/FavoritesRow";
+import { Notification } from "../../components/Notification";
 import styles from "../../styles/Favorites.module.css";
 import Header from "../../components/Header";
 import { useFavorites } from "../../hooks/use-favorites";
@@ -8,7 +9,8 @@ import { NextPage } from "next";
 import { EmptyState } from "../../components/EmptyState";
 
 const Favorites: NextPage = () => {
-  const [favorites, addFavorite, removeFavorite] = useFavorites();
+  const [favorites, addFavorite, removeFavorite, error, dismissError] =
+    useFavorites();
 
   return (
     <div>
@@ -20,6 +22,9 @@ const Favorites: NextPage = () => {
       </Head>
       <Header />
       <div className={styles.favorites}>
+        {error && (
+          <Notification isError={true} message={error} onClose={dismissError} />
+        )}
         <h2>Favorites</h2>
         {favorites.length > 0 && (
           <main>
