@@ -6,7 +6,7 @@ import { HeartUnfilledIcon } from "../assets/HeartUnfilledIcon";
 import { RightArrowIcon } from "../assets/RightArrowIcon";
 import { ArtObject } from "../utils/types";
 import { truncateString } from "../utils/text";
-import styles from "../styles/Favorites.module.css";
+import styles from "../styles/pages/Favorites.module.css";
 
 interface Props {
   item: ArtObject;

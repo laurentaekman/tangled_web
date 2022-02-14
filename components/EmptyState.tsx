@@ -1,5 +1,5 @@
 import { PaletteIcon } from "../assets/PaletteIcon";
-import styles from "../styles/EmptyState.module.css";
+import styles from "../styles/components/EmptyState.module.css";
 
 interface Props {
   message: string;

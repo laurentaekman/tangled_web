@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { QuestionIcon } from "../assets/QuestionIcon";
 import { truncateString } from "../utils/text";
-import styles from "../styles/ArtObjectCard.module.css";
+import styles from "../styles/components/ArtObjectCard.module.css";
 import { ArtObject } from "../utils/types";
 
 interface Props {

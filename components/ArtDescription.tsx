@@ -1,4 +1,4 @@
-import artPostStyles from "../styles/art-post.module.css";
+import artPostStyles from "../styles/pages/art-post.module.css";
 import Link from "next/link";
 import { SearchTypes, findRelatedObject } from "../utils/api";
 import { useContext, useEffect, useState } from "react";

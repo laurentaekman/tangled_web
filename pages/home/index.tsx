@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
 import { Notification } from "../../components/Notification";
-import styles from "../../styles/Home.module.css";
+import styles from "../../styles/pages/Home.module.css";
 import ArtObjectCard from "../../components/ArtObjectCard";
 import ObjectsContext from "../../context/objects-context";
 import Header from "../../components/Header";

@@ -3,7 +3,7 @@ import { HeartUnfilledIcon } from "../assets/HeartUnfilledIcon";
 import { HomeIcon } from "../assets/HomeIcon";
 import { PaintBrushIcon } from "../assets/PaintBrushIcon";
 import { PaletteIcon } from "../assets/PaletteIcon";
-import styles from "../styles/Header.module.css";
+import styles from "../styles/components/Header.module.css";
 
 const Header = () => {
   return (

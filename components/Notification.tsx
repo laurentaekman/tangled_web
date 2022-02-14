@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { CrossCircle } from "../assets/CrossCircleIcon";
-import styles from "../styles/Notification.module.css";
+import styles from "../styles/components/Notification.module.css";
 
 interface Props {
   isError: boolean;

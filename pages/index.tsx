@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import styles from "../styles/WelcomePage.module.css";
+import styles from "../styles/pages/WelcomePage.module.css";
 import ObjectsContext from "../context/objects-context";
 import { getArtObject, getArtObjects } from "../utils/api";
 import { useFavorites } from "../hooks/use-favorites";

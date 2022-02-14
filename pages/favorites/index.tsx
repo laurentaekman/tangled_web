@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { FavoritesRow } from "../../components/FavoritesRow";
 import { Notification } from "../../components/Notification";
-import styles from "../../styles/Favorites.module.css";
+import styles from "../../styles/pages/Favorites.module.css";
 import Header from "../../components/Header";
 import { useFavorites } from "../../hooks/use-favorites";
 import { ArtObject } from "../../utils/types";

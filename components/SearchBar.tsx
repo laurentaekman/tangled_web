@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../styles/SearchBar.module.css";
+import styles from "../styles/components/SearchBar.module.css";
 import { CrossCircle } from "../assets/CrossCircleIcon";
 import { SearchIcon } from "../assets/SearchIcon";
 
