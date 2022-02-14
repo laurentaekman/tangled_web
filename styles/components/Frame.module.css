@@ -1,7 +1,8 @@
 .frame {
+  left: 2rem;
+
   display: flex;
   align-items: center;
-  left: 2rem;
 }
 
 .frame div {

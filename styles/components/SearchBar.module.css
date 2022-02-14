@@ -1,10 +1,10 @@
 .container {
+  width: 50vw;
+
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-
-  width: 50vw;
 
   fill: var(--primary-text-color);
 }
@@ -15,34 +15,42 @@
 }
 
 .search_elements {
+  width: 30vw;
+
   display: flex;
   align-items: center;
+
+  border-radius: 0.3125rem;
   border: 1px solid var(--outline-color);
-  border-radius: 5px;
   background-color: var(--loader-color);
-  width: 30vw;
 }
 .search_elements span {
   margin: 0 0 0 0.5rem;
 }
 .search_elements button {
+  width: 2rem;
+  height: 100%;
+
+  margin: 0.25rem;
+
   background-color: transparent;
   border: transparent;
-  width: 2rem;
-  margin: 0.25rem;
-  height: 100%;
 }
 .search_elements button:hover {
   cursor: pointer;
 }
 
 .search {
-  font-size: 1rem;
-  color: var(--primary-text-color);
-  padding: 0.5rem;
   width: 30vw;
-  background-color: transparent;
+
+  padding: 0.5rem;
+
+  font-size: 1rem;
+
   border: transparent;
+
+  color: var(--primary-text-color);
+  background-color: transparent;
 }
 .search::placeholder {
   color: var(--primary-text-color);

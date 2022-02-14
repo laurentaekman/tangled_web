@@ -1,11 +1,14 @@
 .loader {
+  width: 10rem;
+  height: 10rem;
+
+  margin: auto;
+  padding: 1rem;
+
   border: 0.5rem solid var(--loader-color);
   border-top: 0.5rem solid var(--action-color);
   border-radius: 100%;
-  width: 10rem;
-  height: 10rem;
-  margin: auto;
-  padding: 1rem;
+
   animation: spin 0.75s ease-in-out infinite;
 }
 @keyframes spin {
@@ -20,6 +23,7 @@
 .main {
   width: 100%;
   min-width: 63rem;
+
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -27,9 +31,11 @@
 
 .title {
   margin: 2rem 0 0 0;
+
+  border-radius: 1rem;
+
   line-height: 1.15;
   font-size: 4rem;
-  border-radius: 1rem;
 }
 
 .title,
@@ -44,16 +50,18 @@
 }
 
 .search {
+  width: 50vw;
+  height: 8vh;
+
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-around;
   align-items: center;
-  width: 50vw;
-  height: 8vh;
 }
 
 .home_content {
   width: 95vw;
+
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
@@ -66,9 +74,11 @@
   position: fixed;
   bottom: 0.5rem;
   right: 0.5rem;
-  background-color: transparent;
-  border: transparent;
+
   margin: 1rem;
+
+  border: transparent;
+  background-color: transparent;
 
   transition: all 0.2s ease;
 }
@@ -86,6 +96,7 @@
 
 .cards {
   width: 90vw;
+
   display: flex;
   flex-flow: row wrap;
   justify-content: center;

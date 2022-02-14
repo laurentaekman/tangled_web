@@ -3,13 +3,13 @@
   top: 8rem;
   right: 1rem;
 
+  width: 30%;
+
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-around;
 
-  /* height: 2rem; */
-  width: 30%;
   padding: 1rem;
 
   font-size: larger;
@@ -29,6 +29,7 @@
 .notification button {
   display: flex;
   align-items: center;
+
   background-color: transparent;
   border: transparent;
 

@@ -1,11 +1,11 @@
 .main {
+  height: 100vh;
+  width: 100vw;
+
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-around;
-
-  height: 100vh;
-  width: 100vw;
 }
 .main h1 {
   font-size: 4rem;
@@ -14,15 +14,19 @@
 .images {
   display: flex;
   flex-flow: row nowrap;
+
   padding: 2rem;
   margin: 3rem 0 0 0;
+
   fill: var(--primary-text-color);
 }
 
 .primary_image_frame {
   padding: 1rem;
-  border-radius: 100%;
+
   border: 3rem double var(--tertiary-background-color);
+  border-radius: 100%;
+
   animation: floating 4s infinite ease-in-out;
 }
 
@@ -30,14 +34,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  border: 2rem solid var(--tertiary-background-color);
   border-radius: 100%;
 
   overflow: hidden;
-  border: 2rem solid var(--tertiary-background-color);
 }
 .primary_image {
   height: 60vh;
   width: 60vh;
+
   animation: fade 2s ease-in 1;
 }
 
@@ -56,12 +62,14 @@
   justify-content: center;
   border-radius: 100%;
 
-  overflow: hidden;
   border: 2rem double var(--tertiary-background-color);
+
+  overflow: hidden;
 }
 .secondary_image {
   height: 30vh;
   width: 30vh;
+
   animation: fade 3s ease-in 1;
 }
 
@@ -69,20 +77,23 @@
   position: relative;
   left: -8rem;
   top: 2rem;
-  background: var(--hover-background-color);
-  border: 1px solid var(--outline-color);
-  box-shadow: 1rem 3rem var(--tertiary-background-color);
+
+  width: 60vh;
+  margin: 12rem 0 0 0;
 
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
 
-  width: 60vh;
-  margin: 12rem 0 0 0;
-
   padding: 2rem;
-  border-radius: 25px;
+
+  border: 1px solid var(--outline-color);
+  border-radius: 1.5625rem;
+
+  box-shadow: 1rem 3rem var(--tertiary-background-color);
+  background: var(--hover-background-color);
+
   text-align: center;
 }
 
@@ -91,18 +102,21 @@
   flex-flow: row nowrap;
   align-items: center;
 
-  color: var(--primary-text-color);
-  fill: var(--primary-text-color);
+  padding: 1rem;
+
   border: 1px solid var(--primary-text-color);
   border-radius: 25px;
-  padding: 1rem;
+
+  color: var(--primary-text-color);
+  fill: var(--primary-text-color);
 
   transition: all 0.2s ease;
 }
 .main_text a:hover {
+  border: 1px solid var(--action-color);
+
   color: var(--action-color);
   fill: var(--action-color);
-  border: 1px solid var(--action-color);
 
   transition: all 0.2s ease;
 }
@@ -115,12 +129,15 @@
 }
 
 .loader {
+  width: 10rem;
+  height: 10rem;
+
+  margin: auto;
+
   border: 0.5rem solid var(--loader-color);
   border-top: 0.5rem solid var(--action-color);
   border-radius: 100%;
-  width: 10rem;
-  height: 10rem;
-  margin: auto;
+
   animation: spin 0.75s ease-in-out infinite;
 }
 @keyframes spin {

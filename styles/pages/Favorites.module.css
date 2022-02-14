@@ -1,9 +1,9 @@
 .favorites {
-  fill: var(--outline-color);
-
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+
+  fill: var(--outline-color);
 }
 .favorites main {
   display: flex;
@@ -23,19 +23,21 @@
 }
 
 .favorites_row {
+  width: 85%;
+  height: 15vh;
+
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
 
-  width: 85%;
-  height: 15vh;
-
   margin: 0.5rem;
   padding: 1rem;
-  font-size: large;
+
   border: 1px solid var(--outline-color);
   border-radius: 25px;
+
+  font-size: large;
 }
 .favorites_row:hover {
   background: var(--hover-background-color);
@@ -48,10 +50,11 @@
   margin: 0 0 0 1rem;
 }
 .favorites_row a:hover {
-  color: var(--action-color);
   border-color: var(--action-color);
-  transition: all 0.2s ease;
+  color: var(--action-color);
   fill: var(--action-color);
+
+  transition: all 0.2s ease;
 }
 .favorites_row svg {
   width: 2rem;
@@ -60,14 +63,17 @@
 .favorites_row button {
   height: 2rem;
   width: 2rem;
-  background: transparent;
-  border-radius: 100%;
-  border: 2px solid var(--outline-color);
-  fill: var(--outline-color);
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background: transparent;
+  border-radius: 100%;
+  border: 2px solid var(--outline-color);
+
+  fill: var(--outline-color);
+
   transition: all 0.2s ease;
 }
 .favorites_row button svg {
@@ -76,35 +82,43 @@
 }
 .favorites_row button:hover {
   cursor: pointer;
-  color: var(--action-color);
+
   border-color: var(--action-color);
-  transition: all 0.2s ease;
+  color: var(--action-color);
   fill: var(--action-color);
+
+  transition: all 0.2s ease;
 }
 .favorites_cropped_image {
+  width: 100%;
+  height: 80%;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 80%;
+
   margin: 0 1rem;
 
   overflow: hidden;
 }
 
 .favorites_row_text {
+  width: 30%;
+
   display: flex;
   flex-flow: column wrap;
-  width: 30%;
+
   padding: 0 0 0 1rem;
 }
 
 .favorites_action_items {
   width: 5rem;
+
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: flex-end;
+
   padding: 0 2rem 0 0;
 }
 .favorites_action_items a,
