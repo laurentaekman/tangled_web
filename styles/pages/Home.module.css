@@ -1,3 +1,90 @@
+.main {
+  /* display: flex;
+  flex-flow: column wrap;
+  align-items: center; */
+  /* width: 100%; */
+}
+
+.main h2 {
+  text-align: center;
+  margin: 1rem;
+}
+
+.description {
+  margin: 4rem 0;
+  line-height: 1.5;
+  font-size: 1.5rem;
+}
+
+.search {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.search div {
+  padding: 0.25rem;
+}
+
+.home_content {
+  /* width: 95vw; */
+
+  /* display: grid; */
+
+  /* display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center; */
+
+  fill: var(--primary-text-color);
+}
+
+.home_content button {
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.5rem;
+
+  margin: 0;
+  /* margin: 1rem;
+
+  grid-row: 2 / span 1; */
+
+  border: transparent;
+  background-color: transparent;
+
+  transition: all 0.2s ease;
+}
+.home_content button:hover {
+  cursor: pointer;
+  fill: var(--action-color);
+
+  transition: all 0.2s ease;
+}
+
+.home_content svg {
+  height: 3rem;
+  width: 3rem;
+}
+
+.cards {
+  padding: 0 4.5rem;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1rem;
+  /* width: 90vw; */
+  /* grid-column: 1 / 2; */
+
+  /* display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr; */
+
+  /* display: flex;
+  flex-flow: row wrap;
+  justify-content: center; */
+}
+
 .loader {
   width: 10rem;
   height: 10rem;
@@ -18,86 +105,4 @@
   100% {
     transform: rotate(360deg);
   }
-}
-
-.main {
-  width: 100%;
-  min-width: 63rem;
-
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-}
-
-.title {
-  margin: 2rem 0 0 0;
-
-  border-radius: 1rem;
-
-  line-height: 1.15;
-  font-size: 4rem;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.search {
-  width: 50vw;
-  height: 8vh;
-
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.home_content {
-  width: 95vw;
-
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-
-  fill: var(--primary-text-color);
-}
-
-.home_content button {
-  position: fixed;
-  bottom: 0.5rem;
-  right: 0.5rem;
-
-  margin: 1rem;
-
-  border: transparent;
-  background-color: transparent;
-
-  transition: all 0.2s ease;
-}
-.home_content button:hover {
-  cursor: pointer;
-  fill: var(--action-color);
-
-  transition: all 0.2s ease;
-}
-
-.home_content svg {
-  height: 3rem;
-  width: 3rem;
-}
-
-.cards {
-  width: 90vw;
-
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
 }

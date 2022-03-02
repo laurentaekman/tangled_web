@@ -1,13 +1,14 @@
 .card {
-  min-width: 21rem;
-  width: 24vw;
-  height: 30vh;
+  /* min-width: 21rem; */
+  /* width: 100%;
+  height: 30vh; */
+  /* width: 35vw; */
 
   display: flex;
   align-items: flex-start;
   justify-content: center;
 
-  margin: 1rem;
+  /* margin: 1rem; */
   padding: 1.5rem;
 
   text-align: center;
@@ -43,7 +44,7 @@
 }
 
 .card_items {
-  height: 95%;
+  /* height: 95%; */
 
   display: flex;
   flex-flow: column nowrap;
@@ -63,8 +64,9 @@
 }
 
 .card h2 {
+  width: 80%;
   border-radius: 1rem;
-  padding: 1rem;
+  padding: 0.5rem;
 
   background: var(--card-color);
   color: var(--secondary-text-color);
@@ -80,7 +82,10 @@
   align-items: center;
   justify-content: center;
 
-  width: 30vh;
+  /* width: 40%;
+  height: 30%; */
+  height: 7rem;
+  width: 10rem;
   overflow: hidden;
 
   border-radius: 1.5625rem;
