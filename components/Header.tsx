@@ -7,31 +7,37 @@ import styles from "../styles/components/Header.module.css";
 
 const Header = () => {
   return (
-    <div className={styles.header}>
-      <Link href="/home">
-        <a className={styles.link}>
-          <HomeIcon />
-          Home
-        </a>
-      </Link>
-      <div className={styles.header_text}>
-        <Link href="/">
-          <a>
-            <h1>
-              Art Crawl
-              <PaletteIcon />
-              <PaintBrushIcon />
-            </h1>
-          </a>
-        </Link>
+    <nav className={styles.header}>
+      <div className={styles.header_items}>
+        <div className={styles.header_text}>
+          <Link href="/">
+            <a>
+              <h1>
+                Art Crawl
+                <div>
+                  <PaletteIcon />
+                  <PaintBrushIcon />
+                </div>
+              </h1>
+            </a>
+          </Link>
+        </div>
+        <div className={styles.links}>
+          <Link href="/home">
+            <a className={styles.link}>
+              <HomeIcon />
+              Home
+            </a>
+          </Link>
+          <Link href="/favorites">
+            <a className={styles.link}>
+              <HeartUnfilledIcon />
+              Favorites
+            </a>
+          </Link>
+        </div>
       </div>
-      <Link href="/favorites">
-        <a className={styles.link}>
-          <HeartUnfilledIcon />
-          Favorites
-        </a>
-      </Link>
-    </div>
+    </nav>
   );
 };
 

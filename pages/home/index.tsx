@@ -139,8 +139,8 @@ const Home: NextPage = () => {
         {/* <html lang="en"></html> */}
       </Head>
 
+      <Header />
       <main className={styles.main}>
-        <Header />
         {error && (
           <Notification
             isError={true}

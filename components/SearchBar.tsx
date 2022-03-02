@@ -31,14 +31,20 @@ export const SearchBar = ({ setSearchTerm }: Props) => {
           onChange={(event) => setSearchValue(event.target.value)}
           className={styles.search}
         ></input>
-        {searchValue && (
-          <button onClick={clearInput} aria-label="clear search" type="button">
-            <CrossCircle />
+        <div>
+          {searchValue && (
+            <button
+              onClick={clearInput}
+              aria-label="clear search"
+              type="button"
+            >
+              <CrossCircle />
+            </button>
+          )}
+          <button type="submit" aria-label="search">
+            <SearchIcon />
           </button>
-        )}
-        <button type="submit" aria-label="search">
-          <SearchIcon />
-        </button>
+        </div>
       </div>
     </form>
   );

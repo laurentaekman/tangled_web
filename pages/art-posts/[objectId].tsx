@@ -71,7 +71,7 @@ const ArtPost: NextPage = () => {
           onClose={() => setError(null)}
         />
       )}
-      <div className={styles.post_items}>
+      <main className={styles.post_items}>
         {artObject?.imageSource && (
           <Frame dimensions={frameDimensions}>
             <img
@@ -93,7 +93,7 @@ const ArtPost: NextPage = () => {
             secondaryMessage="Please try refreshing the page, or return to Home."
           />
         )}
-      </div>
+      </main>
       {isLoading && <div className={styles.loader}></div>}
     </div>
   );

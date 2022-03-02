@@ -21,7 +21,7 @@ const Favorites: NextPage = () => {
         {/* <html lang="en"></html> */}
       </Head>
       <Header />
-      <div className={styles.favorites}>
+      <main className={styles.favorites}>
         {error && (
           <Notification isError={true} message={error} onClose={dismissError} />
         )}
@@ -45,7 +45,7 @@ const Favorites: NextPage = () => {
             <EmptyState message="No favorites yet!" />
           </main>
         )}
-      </div>
+      </main>
     </div>
   );
 };
