@@ -25,11 +25,13 @@ const Favorites: NextPage = () => {
         {error && (
           <Notification isError={true} message={error} onClose={dismissError} />
         )}
-        <h2>Favorites</h2>
+        <h1>Favorites</h1>
         {favorites.length > 0 && (
           <main>
-            <div>{`Navigate to a favorited art post by clicking the row's arrow icon.`}</div>
-            <div>{`Unfavorite an art post by clicking the row's heart icon.`}</div>
+            <div className={styles.favorites_description}>
+              <div>{`Navigate to a favorited art post by clicking the row's arrow icon.`}</div>
+              <div>{`Unfavorite an art post by clicking the row's heart icon.`}</div>
+            </div>
             {favorites.length > 0 &&
               favorites.map((favorite: ArtObject) => (
                 <FavoritesRow

@@ -1,21 +1,19 @@
 .empty_state {
-  height: 35vh;
-  width: 35vw;
+  height: 40vh;
+  width: 40vw;
 
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
 
-  margin: 2rem;
+  padding: 1rem;
 
   border: 1px solid var(--outline-color);
   border-radius: 25px;
 }
 
 .empty_state svg {
-  height: 10rem;
-  width: 10rem;
-
-  margin: 1rem;
+  height: 50%;
+  width: 50%;
 }

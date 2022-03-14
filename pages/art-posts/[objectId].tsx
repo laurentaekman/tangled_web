@@ -18,14 +18,14 @@ const ArtPost: NextPage = () => {
   const [artObject, setArtObject] = useState<ArtObject>();
   const [error, setError] = useState<any>();
   const [isLoading, setIsLoading] = useState(false);
-  const [imageDimensions, setImageDimensions] = useState({
-    height: 800,
-    width: 768,
-  });
-  const frameDimensions = {
-    height: imageDimensions.height + 200,
-    width: imageDimensions.width + 200,
-  };
+  // const [imageDimensions, setImageDimensions] = useState({
+  //   height: 800,
+  //   width: 768,
+  // });
+  // const frameDimensions = {
+  //   height: imageDimensions.height + 200,
+  //   width: imageDimensions.width + 200,
+  // };
 
   useEffect(() => {
     async function fetchArtObject() {
@@ -44,16 +44,16 @@ const ArtPost: NextPage = () => {
     fetchArtObject();
   }, [objectId]);
 
-  useEffect(() => {
-    const image = new Image();
-    image.onload = function () {
-      setImageDimensions({
-        height: image.height / 1.25,
-        width: image.width / 1.25,
-      });
-    };
-    image.src = artObject?.imageSource ?? "";
-  }, [artObject?.imageSource]);
+  // useEffect(() => {
+  //   const image = new Image();
+  //   image.onload = function () {
+  //     setImageDimensions({
+  //       height: image.height / 1.25,
+  //       width: image.width / 1.25,
+  //     });
+  //   };
+  //   image.src = artObject?.imageSource ?? "";
+  // }, [artObject?.imageSource]);
 
   return (
     <div className={styles.art_post}>
@@ -73,14 +73,15 @@ const ArtPost: NextPage = () => {
       )}
       <main className={styles.post_items}>
         {artObject?.imageSource && (
-          <Frame dimensions={frameDimensions}>
-            <img
-              src={artObject.imageSource}
-              alt={artObject.title}
-              height={imageDimensions.height}
-              width={imageDimensions.width}
-            />
-          </Frame>
+          // <Frame dimensions={frameDimensions}>
+          //   <img
+          //     src={artObject.imageSource}
+          //     alt={artObject.title}
+          //     height={imageDimensions.height}
+          //     width={imageDimensions.width}
+          //   />
+          // </Frame>
+          <img src={artObject.imageSource} alt={artObject.title} />
         )}
         {artObject && !isLoading && !error && (
           <div className={styles.description_info}>
