@@ -24,9 +24,7 @@
 
 .favorites_row {
   width: 70vw;
-  /* width: 85%; */
-  /* height: 15vh; */
-
+  
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
@@ -37,10 +35,6 @@
 
   border: 1px solid var(--outline-color);
   border-radius: 25px;
-
-  /* @media (min-width: 350px) {
-    flex-flow: row nowrap;
-  } */
 }
 
 @media (min-width: 360px) {

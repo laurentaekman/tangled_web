@@ -1,17 +1,15 @@
 .main {
-  height: 100vh;
   width: 100vw;
-
+  height: 100vh;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   align-items: center;
   justify-content: space-around;
 }
-.main h1 {
-  font-size: 4rem;
-}
 
 .images {
+  /* width: 100vw;
+  height: 100vh; */
   display: flex;
   flex-flow: row nowrap;
 
@@ -22,6 +20,8 @@
 }
 
 .primary_image_frame {
+  /* width: 30vw;
+  height: 30vh;*/
   padding: 1rem;
 
   border: 3rem double var(--tertiary-background-color);
@@ -31,6 +31,11 @@
 }
 
 .primary_cropped_image {
+  /* width: 100%;
+  height: 100%; */
+  /* width: 80%;
+  height: 80%; */
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,6 +46,8 @@
   overflow: hidden;
 }
 .primary_image {
+  /* height: 100%;
+  width: 100%; */
   height: 60vh;
   width: 60vh;
 
@@ -48,10 +55,10 @@
 }
 
 .secondary_image_frame {
-  position: relative;
+  /* position: relative;
   top: 5rem;
   left: 17rem;
-  margin: -10rem;
+  margin: -10rem; */
 
   animation: floating 3s infinite alternate-reverse;
 }
@@ -74,13 +81,20 @@
 }
 
 .main_text {
-  position: relative;
+  z-index: 100;
+  max-width: 500px;
+  width: 50vw;
+  /* position: relative;
   left: -8rem;
-  top: 2rem;
+  top: 2rem; */
 
-  width: 60vh;
-  margin: 12rem 0 0 0;
+  /* width: 60vh;
+  margin-top: 12rem;
 
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center; */
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
@@ -91,16 +105,22 @@
   border: 1px solid var(--outline-color);
   border-radius: 1.5625rem;
 
-  box-shadow: 1rem 3rem var(--tertiary-background-color);
-  background: var(--hover-background-color);
+  /* box-shadow: 1rem 3rem var(--tertiary-background-color); */
+  /* background: rgba(var(--primary-background-color), 0.8); */
+  background: var(--primary-background-color);
 
   text-align: center;
 }
+/* .main_text h1 {
+  font-size: 4rem;
+} */
 
 .main_text a {
+  width: 70%;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  justify-content: space-around;
 
   padding: 1rem;
 
@@ -112,6 +132,7 @@
 
   transition: all 0.2s ease;
 }
+
 .main_text a:hover {
   border: 1px solid var(--action-color);
 
@@ -125,7 +146,7 @@
   height: 2rem;
   width: 2rem;
 
-  margin: 0 0 0 1rem;
+  /* margin-left: 1rem; */
 }
 
 .loader {
@@ -140,6 +161,13 @@
 
   animation: spin 0.75s ease-in-out infinite;
 }
+
+@media (min-width: 360px) {
+  .main_text a {
+    width: 30%;
+  }
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
