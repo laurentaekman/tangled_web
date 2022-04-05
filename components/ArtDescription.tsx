@@ -102,6 +102,7 @@ export default function ArtDescription({ artObject }: Props) {
     return !!data.artInfo || data.artInfo !== "";
   });
 
+  //useEffects use fetched data to find related art objects, and return a link to their art post
   useEffect(() => {
     async function getDepartmentPath() {
       setIsLoading(true);

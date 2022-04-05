@@ -20,7 +20,7 @@ const WelcomePage: NextPage = () => {
         object = await getArtObject(436121);
         setDefaultObject(object);
       } catch (error) {
-        console.log((error as Error).message ?? "Couldn't fetch art objects.");
+        console.log("Couldn't fetch art objects.");
       }
     };
 

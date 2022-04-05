@@ -32,8 +32,16 @@
 .search_elements button:hover {
   cursor: pointer;
 }
+.search_actions {
+  display: flex;
+  flex-flow: row nowrap;
+}
 
 .search {
+  display: flex;
+  align-items: center;
+  flex-flow: row nowrap;
+
   width: 30vw;
 
   padding: 0.5rem;
@@ -47,4 +55,27 @@
 }
 .search::placeholder {
   color: var(--primary-text-color);
+}
+
+.search_loader {
+  width: 0.5rem;
+  height: 0.5rem;
+
+  border: 0.5rem solid var(--loader-color);
+  border-top: 0.5rem solid var(--action-color);
+  border-radius: 100%;
+
+  margin: auto;
+
+  padding: 1rem;
+
+  animation: spin 0.75s ease-in-out infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

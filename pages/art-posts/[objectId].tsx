@@ -29,7 +29,7 @@ const ArtPost: NextPage = () => {
           const artObject = await getArtObject(id);
           setArtObject(artObject);
         } catch (error) {
-          setError((error as Error).message ?? "Couldn't fetch art object.");
+          setError("Couldn't fetch art object.");
         }
         setIsLoading(false);
       }

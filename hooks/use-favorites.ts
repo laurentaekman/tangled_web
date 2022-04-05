@@ -22,9 +22,7 @@ export const useFavorites = (): any[] => {
         const objects = await getArtObjects(favoriteIds);
         setFavorites(objects);
       } catch (error) {
-        setError(
-          (error as Error).message ?? "Couldn't fetch favorite objects."
-        );
+        setError("Couldn't fetch favorite objects.");
       }
     };
     if (favoriteIds.length > 0) {

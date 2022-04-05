@@ -27,7 +27,7 @@ const Home: NextPage = () => {
 
   const objectsContext = useContext(ObjectsContext);
   const contextObjectIds = objectsContext.objectIds;
-  const itemsPerPage = 3;
+  const itemsPerPage = 4;
 
   const options = {
     root: null,
@@ -55,6 +55,25 @@ const Home: NextPage = () => {
   */
   const scrollRef = useInfiniteScroll(handleNextPageCall, options);
 
+  //Change in search term determines what Ids are available
+  useEffect(() => {
+    const getSearchedAvailableIds = async () => {
+      try {
+        const newIds = await getObjectsBySearch(searchTerm);
+        setAvailableIds(newIds);
+      } catch (error) {
+        setError("Couldn't fetch art objects.");
+      }
+    };
+    //This is first effect in chain of effects, so we only set 'true' loading state so far
+    setIsLoading(true);
+    if (searchTerm) {
+      getSearchedAvailableIds();
+    } else {
+      setAvailableIds(contextObjectIds);
+    }
+  }, [contextObjectIds, searchTerm]);
+
   //Change in available objects leads to automatic reset of items shown & page
   useEffect(() => {
     const startingObjectIds = availableIds
@@ -65,36 +84,10 @@ const Home: NextPage = () => {
       setArtObjects(newObjects);
     };
 
-    if (availableIds?.length > 0) {
-      setIsLoading(true);
-      setCurrentPage(1);
-      setArtObjectIds(availableIds.slice(0, 1 * itemsPerPage));
-      getStartingObjects();
-      setIsLoading(false);
-    } else {
-      setCurrentPage(1);
-      setArtObjectIds([]);
-      setArtObjects([]);
-      setIsLoading(false);
-    }
+    setCurrentPage(1);
+    setArtObjectIds(startingObjectIds);
+    startingObjectIds.length > 0 ? getStartingObjects() : setArtObjects([]);
   }, [availableIds]);
-
-  //Change in search term determines what Ids are available
-  useEffect(() => {
-    const getSearchedAvailableIds = async () => {
-      try {
-        const newIds = await getObjectsBySearch(searchTerm);
-        setAvailableIds(newIds);
-      } catch (error) {
-        setError((error as Error).message ?? "Couldn't fetch art objects.");
-      }
-    };
-    if (searchTerm) {
-      getSearchedAvailableIds();
-    } else {
-      setAvailableIds(contextObjectIds);
-    }
-  }, [contextObjectIds, searchTerm]);
 
   //Using available IDs to grab objects to display
   useEffect(() => {
@@ -102,15 +95,13 @@ const Home: NextPage = () => {
     const endIndex = startIndex + itemsPerPage;
 
     const getNewArtObjects = async () => {
-      setIsLoading(true);
       const newObjectIds = availableIds.slice(startIndex, endIndex);
       try {
         const newObjects: ArtObject[] = await getArtObjects(newObjectIds);
         setArtObjects((prevArray) => prevArray.concat(newObjects).sort());
       } catch (error) {
-        setError((error as Error).message ?? "Couldn't fetch art objects.");
+        setError("Couldn't fetch art objects.");
       }
-
       setIsLoading(false);
     };
 
@@ -122,6 +113,12 @@ const Home: NextPage = () => {
       getNewArtObjects();
     }
   }, [artObjectIds, availableIds, currentPage]);
+
+  useEffect(() => {
+    if (error) {
+      setIsLoading(false);
+    }
+  }, [error]);
 
   // Behavior for when 'scroll to top' button is clicked and sendToTop flag is marked 'true'
   useEffect(() => {
@@ -151,7 +148,7 @@ const Home: NextPage = () => {
         <h2>Get started by clicking one of the art pieces below.</h2>
         <div className={styles.search}>
           <div>Or search for something specific:</div>
-          <SearchBar setSearchTerm={setSearchTerm} />
+          <SearchBar setSearchTerm={setSearchTerm} isLoading={isLoading} />
         </div>
         <div className={styles.home_content}>
           {artObjects.length > 0 && artObjectIds.length && (
