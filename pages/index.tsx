@@ -1,82 +1,33 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/pages/WelcomePage.module.css";
-import ObjectsContext from "../context/objects-context";
-import { getArtObject, getArtObjects } from "../utils/api";
-import { useFavorites } from "../hooks/use-favorites";
+import { getArtObject } from "../utils/api";
 import { ArtObject } from "../utils/types";
 import { RightArrowIcon } from "../assets/RightArrowIcon";
 
 const WelcomePage: NextPage = () => {
-  const [artObjects, setArtObjects] = useState<ArtObject[]>([]);
-  const [favorites] = useFavorites();
-  const objectsContext = useContext(ObjectsContext);
-  const objectIds: number[] = objectsContext.objectIds;
+  const [defaultObject, setDefaultObject] = useState<ArtObject>();
+  let triesToRetrieveObject = 1;
 
+  //Grab default image to display as background on Welcome page
   useEffect(() => {
-    let newObjects: ArtObject[] = [];
-    if (favorites.length >= 2) {
-      newObjects = favorites
-        .filter((favorite: ArtObject) => favorite.imageSource)
-        .slice(0, 2);
-    }
-
-    const getObjects = async () => {
-      let objects: ArtObject[] = [];
-      let indexes: number[] = [];
-      for (let i = 0; i < 2; i++) {
-        let newIndex = Math.floor(Math.random() * (objectIds.length - 0 + 1));
-        if (!indexes.some((index) => index === newIndex)) {
-          newIndex = Math.floor(Math.random() * (newIndex - 0 + 1));
-        }
-        indexes.push(newIndex);
-      }
-      const newObjectIds = indexes.map((index) => objectIds[index]);
+    let object: ArtObject | undefined;
+    const getDefaultObject = async () => {
+      triesToRetrieveObject++;
       try {
-        objects = await getArtObjects(newObjectIds);
-        setArtObjects(objects);
+        object = await getArtObject(436121);
+        setDefaultObject(object);
       } catch (error) {
         console.log((error as Error).message ?? "Couldn't fetch art objects.");
       }
     };
 
-    if (newObjects.length < 2 && objectIds.length) {
-      getObjects();
-    } else {
-      setArtObjects(newObjects);
+    if (!defaultObject && triesToRetrieveObject <= 3) {
+      getDefaultObject();
     }
-  }, [favorites, objectIds]);
-
-  useEffect(() => {
-    const replaceImagelessObject = async () => {
-      const indexToReplace = artObjects.findIndex(
-        (object) => !object.imageSource
-      );
-      let newObjectId =
-        objectIds[Math.floor(Math.random() * (objectIds.length - 0 + 1))];
-      try {
-        let newObject = await getArtObject(newObjectId);
-        if (newObject) {
-          setArtObjects((prevArray) => {
-            let newArray = [...prevArray];
-            newArray[indexToReplace] = newObject!;
-            return newArray;
-          });
-        }
-      } catch (error) {
-        console.log((error as Error).message ?? "Couldn't fetch art objects.");
-      }
-    };
-    if (
-      objectIds.length > 0 &&
-      artObjects.length >= 2 &&
-      artObjects.some((object) => !object.imageSource)
-    ) {
-      replaceImagelessObject();
-    }
-  }, [artObjects, objectIds]);
+  }, [defaultObject]);
 
   return (
     <div>
@@ -86,46 +37,18 @@ const WelcomePage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        {/* <div className={styles.images}>
-          <div className={styles.primary_image_frame}>
-            <div className={styles.primary_cropped_image}>
-              {artObjects[0]?.imageSource ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={artObjects[0].imageSource}
-                  alt={artObjects[0].title}
-                  className={styles.primary_image}
-                />
-              ) : (
-                <div className={styles.primary_image}></div>
-              )}
-            </div>
-          </div>
-          <div className={styles.secondary_image_frame}>
-            <div className={styles.secondary_cropped_image}>
-              {artObjects[1]?.imageSource ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={artObjects[1].imageSource}
-                  alt={artObjects[1].title}
-                  className={styles.secondary_image}
-                />
-              ) : (
-                <div className={styles.secondary_image}></div>
-              )}
-            </div>
-          </div>
-        </div> */}
         <div
+          // Pass CSS styling and image URL inline here
           style={{
-            backgroundImage: `url(${artObjects[0]?.imageSource})`,
+            backgroundImage: `url(${defaultObject?.imageSource})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            width: "100vw",
-            height: "100vh",
+            minWidth: "100vw",
+            minHeight: "100vh",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            animation: `${styles.fade} 3s ease-in 1`,
           }}
         >
           <div className={styles.main_text}>

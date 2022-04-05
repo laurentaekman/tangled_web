@@ -1,19 +1,20 @@
 .main h2 {
-  text-align: center;
   margin: 1rem;
+  text-align: center;
 }
 
 .description {
   margin: 4rem 0;
-  line-height: 1.5;
+
   font-size: 1.5rem;
+  line-height: 1.5;
 }
 
 .search {
+  align-items: center;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-around;
-  align-items: center;
 }
 .search div {
   padding: 0.25rem;
@@ -28,15 +29,16 @@
   bottom: 0.5rem;
   right: 0.5rem;
 
-  margin: 0;
-
   border: transparent;
   background-color: transparent;
+
+  margin: 0;
 
   transition: all 0.2s ease;
 }
 .home_content button:hover {
   cursor: pointer;
+
   fill: var(--action-color);
 
   transition: all 0.2s ease;
@@ -48,25 +50,26 @@
 }
 
 .cards {
-  padding: 0 4.5rem;
-  margin-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 350px));
   grid-column-gap: 1.5rem;
   grid-row-gap: 1rem;
+
+  padding: 0 4.5rem;
+  margin-top: 1rem;
 }
 
 .loader {
   width: 10rem;
   height: 10rem;
 
-  margin: auto;
-  margin-top: 1rem;
-  padding: 1rem;
-
   border: 0.5rem solid var(--loader-color);
   border-top: 0.5rem solid var(--action-color);
   border-radius: 100%;
+
+  margin: auto;
+  margin-top: 1rem;
+  padding: 1rem;
 
   animation: spin 0.75s ease-in-out infinite;
 }
