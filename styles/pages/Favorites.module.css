@@ -1,16 +1,18 @@
 .favorites {
+  align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
 
   fill: var(--outline-color);
 }
 .favorites main {
+  align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
-  text-align: center;
+
   margin: 0 1rem;
+
+  text-align: center;
 }
 
 .favorites_description {
@@ -23,12 +25,12 @@
 }
 
 .favorites_row {
-  width: 70vw;
-  
+  align-items: center;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  align-items: center;
+
+  width: 70vw;
 
   margin: 0.5rem;
   padding: 1rem;
@@ -78,12 +80,12 @@
   height: 2rem;
 }
 .favorites_row button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
   height: 2rem;
   width: 2rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   background: transparent;
   border-radius: 100%;
@@ -108,16 +110,16 @@
 }
 
 .favorites_cropped_image {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
   width: 75%;
   height: 5rem;
 
-  border-radius: 25px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   margin: 0 1rem;
+
+  border-radius: 25px;
 
   overflow: hidden;
 }
@@ -129,12 +131,12 @@
 }
 
 .favorites_action_items {
-  width: 5rem;
-
+  align-items: center;
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
   justify-content: flex-end;
+
+  width: 5rem;
 
   padding-top: 0.5rem;
 }

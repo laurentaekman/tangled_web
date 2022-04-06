@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { CSSTransition } from "react-transition-group";
 import { useState } from "react";
@@ -43,7 +44,7 @@ export const FavoritesRow = ({ item, removeFavorite }: Props) => {
             {!isFavorited && <HeartUnfilledIcon />}
           </button>
           <Link href={`/art-posts/${item.id}`}>
-            <a aria-label="go to favorite's page">
+            <a aria-label={`go to ${item.title} page`}>
               <RightArrowIcon />
             </a>
           </Link>

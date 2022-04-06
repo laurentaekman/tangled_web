@@ -1,7 +1,7 @@
 .container {
+  align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
   justify-content: center;
 
   fill: var(--primary-text-color);
@@ -13,12 +13,13 @@
 }
 
 .search_elements {
-  display: flex;
   align-items: center;
+  display: flex;
+
+  background-color: var(--loader-color);
 
   border-radius: 0.3125rem;
   border: 1px solid var(--outline-color);
-  background-color: var(--loader-color);
 }
 .search_elements button {
   width: 2rem;
@@ -27,6 +28,7 @@
   margin: 0.25rem;
 
   background-color: transparent;
+
   border: transparent;
 }
 .search_elements button:hover {
@@ -38,20 +40,20 @@
 }
 
 .search {
-  display: flex;
   align-items: center;
+  display: flex;
   flex-flow: row nowrap;
 
   width: 30vw;
 
   padding: 0.5rem;
 
-  font-size: 1rem;
-
   border: transparent;
 
-  color: var(--primary-text-color);
   background-color: transparent;
+  color: var(--primary-text-color);
+
+  font-size: 1rem;
 }
 .search::placeholder {
   color: var(--primary-text-color);
@@ -66,7 +68,6 @@
   border-radius: 100%;
 
   margin: auto;
-
   padding: 1rem;
 
   animation: spin 0.75s ease-in-out infinite;

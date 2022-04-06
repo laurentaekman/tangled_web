@@ -8,15 +8,16 @@ export const useInfiniteScroll = (callback: () => void, options: any) => {
     const observer = new IntersectionObserver((entries) => {
       const entry = entries[0];
       if (entry.isIntersecting) {
-        // console.log("triggering callback!");
         callback();
       }
     }, options);
 
+    //If we have a declared scroll ref, observe it so we can log entries as they occur
     if (scrollTarget) {
       observer.observe(scrollTarget);
     }
 
+    //In the case of unmounting a page, stop observing the scroll ref
     return () => {
       if (scrollTarget) {
         observer.unobserve(scrollTarget);

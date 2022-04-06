@@ -60,6 +60,7 @@ export default function ArtDescription({ artObject }: Props) {
     }
   };
 
+  //Data is gathered into objects
   const dataToRender = [
     {
       id: "artist",
@@ -98,6 +99,7 @@ export default function ArtDescription({ artObject }: Props) {
       artInfo: artObject.department,
       linkHref: departmentHref,
     },
+    //If the fetch object is missing a field, it's filtered out of data array
   ].filter((data) => {
     return !!data.artInfo || data.artInfo !== "";
   });

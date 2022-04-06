@@ -10,8 +10,14 @@ import { EmptyState } from "../../components/EmptyState";
 
 const Favorites: NextPage = () => {
   //Using custom hook to retrieve user-specific favorites, as well as update functions and error-management while fetching
-  const [favorites, addFavorite, removeFavorite, error, dismissError] =
-    useFavorites();
+  const [
+    favorites,
+    addFavorite,
+    removeFavorite,
+    isLoadingFavorites,
+    error,
+    dismissError,
+  ] = useFavorites();
 
   return (
     <div>
@@ -42,7 +48,8 @@ const Favorites: NextPage = () => {
               ))}
           </main>
         )}
-        {!favorites.length && (
+        {isLoadingFavorites && <div>Loading!</div>}
+        {!favorites.length && !isLoadingFavorites && (
           <main>
             <EmptyState message="No favorites yet!" />
           </main>

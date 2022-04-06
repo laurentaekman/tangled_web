@@ -8,6 +8,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [objectIds, setObjectIds] = useState<number[]>([]);
   const [departments, setDepartments] = useState<number[]>([]);
 
+  //Values to grab upon initial rendering of application
+  //Total list of available object IDs & departments tied to objects should stay pretty constant
+  //So store them in Context and reference them across application where needed
   useEffect(() => {
     async function getObjectIds() {
       try {

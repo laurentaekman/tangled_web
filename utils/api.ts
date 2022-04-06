@@ -7,6 +7,8 @@ export enum SearchTypes {
   date = "dateBegin",
 }
 
+//For finding one object based on data from another object
+//Compares original object ID to ensure we don't return the same object!
 export const findRelatedObject = async (
   searchType: SearchTypes,
   searchTerm: string,
@@ -34,15 +36,14 @@ export const findRelatedObject = async (
     const objectId = data.objectIDs.find((object: any) => object != currentId);
     if (!objectId) {
       console.log("Couldn't fetch a related object!");
-      // throw new Error();
     }
     return objectId;
   } catch (error) {
     console.log(error);
-    //throw new Error("Couldn't fetch a related object!");
   }
 };
 
+//Function to generate href value based on original object's data
 export const generateHref = async (
   searchType: SearchTypes,
   searchTerm: string,
@@ -60,6 +61,7 @@ export const generateHref = async (
   return path + objectId;
 };
 
+//Retrieves list art object data for array of objects, based on provided IDs
 export const getArtObjects = async (
   objectIDs: number[]
 ): Promise<ArtObject[]> => {
@@ -78,6 +80,7 @@ export const getArtObjects = async (
   return objects;
 };
 
+//Finds one specific art object's data based on given ID
 export const getArtObject = async (objectId: number) => {
   if (objectId) {
     try {
@@ -93,6 +96,7 @@ export const getArtObject = async (objectId: number) => {
   }
 };
 
+//Used for search functionality; finds all provided object IDs related to a given search term
 export const getObjectsBySearch = async (searchTerm: string) => {
   try {
     const response = await fetch(
@@ -105,6 +109,7 @@ export const getObjectsBySearch = async (searchTerm: string) => {
   }
 };
 
+//Used upon initial application render; retrieves all available object IDs
 export const getAllObjectIds = async () => {
   try {
     const response = await fetch(
@@ -123,6 +128,7 @@ export const getAllObjectIds = async () => {
   }
 };
 
+//Used upon initial application render; retrieves all available departments
 export const getAllDepartments = async () => {
   try {
     const response = await fetch(

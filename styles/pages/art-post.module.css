@@ -1,17 +1,18 @@
 .art_post {
-  overflow: hidden;
   fill: var(--outline-color);
+  overflow: hidden;
 }
 
 .post_items {
+  align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
   justify-content: space-around;
 }
 
 .post_items img {
   width: 70vw;
+
   margin-top: 1rem;
   padding: 1rem;
 
@@ -21,17 +22,18 @@
 }
 
 .description_info {
+  align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
 
   text-align: center;
 }
 
 .description {
   width: 70vw;
-  padding: 2rem;
+
   margin: 2rem;
+  padding: 2rem;
 
   background: var(--hover-background-color);
   border: 1px solid var(--outline-color);
@@ -49,17 +51,15 @@
 }
 .description button {
   display: flex;
-  /* align-items: center;
-  justify-content: space-between; */
 
   padding: 0.75rem;
 
   border-radius: 25px;
   border: 1px solid var(--outline-color);
 
+  background: transparent;
   color: var(--outline-color);
   fill: var(--outline-color);
-  background: transparent;
 
   font-weight: 600;
 
@@ -67,11 +67,12 @@
 }
 .description button:hover,
 .description button:active {
-  cursor: pointer;
-
   border: 1px solid var(--action-color);
+
   color: var(--action-color);
   fill: var(--action-color);
+
+  cursor: pointer;
 
   transition: all 0.2s ease;
 }

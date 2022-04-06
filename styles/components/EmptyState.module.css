@@ -1,18 +1,18 @@
 .empty_state {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+
   height: 40vh;
   width: 40vw;
 
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-
-  padding: 1rem;
-  margin: auto;
-  margin-top: 3rem;
-
   border: 1px solid var(--outline-color);
   border-radius: 25px;
+
+  margin: auto;
+  margin-top: 3rem;
+  padding: 1rem;
 }
 
 .empty_state svg {
