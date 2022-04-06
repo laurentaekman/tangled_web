@@ -48,7 +48,7 @@ const Favorites: NextPage = () => {
               ))}
           </main>
         )}
-        {isLoadingFavorites && <div>Loading!</div>}
+        {isLoadingFavorites && <div className={styles.loader}></div>}
         {!favorites.length && !isLoadingFavorites && (
           <main>
             <EmptyState message="No favorites yet!" />
